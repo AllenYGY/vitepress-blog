@@ -13,17 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout vitepress-blog
+        uses: actions/checkout@v2
+        with:
+          repository: AllenYGY/vitepress-blog
+          ref: master
+
       - name: Configure SSH
         run: |
-          # 配置 SSH 私钥
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Test SSH Connection
-        run: |
-          ssh -vT git@github.com
 
       - name: Clone NOTE repository
         run: |
@@ -34,12 +35,10 @@ jobs:
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
           cd ..
 
-      - name: Clone vitepress-blog repository
+      - name: Sync with vitepress-blog repository
         run: |
-          echo "Cloning vitepress-blog repository using SSH"
-          git clone git@github.com:AllenYGY/vitepress-blog.git
-          cp -r NOTE/* vitepress-blog/
-          cd vitepress-blog
+          echo "Syncing files from NOTE to vitepress-blog"
+          cp -r NOTE/* .
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
