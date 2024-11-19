@@ -21,7 +21,7 @@ jobs:
       - name: Update code 
         run: |
           echo "Cloning private repository with GITHUB_TOKEN"
-          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/AllenYGY/NOTE.git
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/AllenYGY/NOTE.git
           cd NOTE
           rm -r .git
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
