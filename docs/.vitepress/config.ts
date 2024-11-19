@@ -1,8 +1,15 @@
 import type { ThemeConfig } from "vitepress-theme-open17/config";
 import { genFeed } from "vitepress-theme-open17/genFeed";
 import { defineConfigWithTheme } from "vitepress";
-
 import { generateSidebar } from "vitepress-sidebar";
+// import  { MermaidMarkdown } from "vitepress-plugin-mermaid";
+// import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid";
+// import { MermaidConfig } from 'mermaid';
+import { withMermaid } from "vitepress-plugin-mermaid";
+
+// import mermaidItMarkdown from 'mermaid-it-markdown';
+
+
 
 const vitepressSidebarOptions = [
   {
@@ -17,11 +24,14 @@ const vitepressSidebarOptions = [
   },
 ];
 
-export default defineConfigWithTheme<ThemeConfig>({
+export default defineConfigWithTheme<ThemeConfig>(withMermaid({
+  
   title: "VitePress Open17",
   lang: "zh-CN",
   description: "A beautiful & simple blog theme of vitepress",
   markdown: {
+    // config: MermaidMarkdown,
+    // config:(md)=>{ md.use(mermaidItMarkdown) },
     math: true,
   },
   sitemap: {
@@ -46,17 +56,17 @@ export default defineConfigWithTheme<ThemeConfig>({
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
-    search: {
-      provider: "local",
-      options: {
-        _render(src, env, md) {
-          const html = md.render(src, env);
-          if (env.frontmatter?.title)
-            return md.render(`# ${env.frontmatter.title}`) + html;
-          return html;
-        },
-      },
-    },
+    // search: {
+    //   provider: "local",
+    //   options: {
+    //     _render(src, env, md) {
+    //       const html = md.render(src, env);
+    //       if (env.frontmatter?.title)
+    //         return md.render(`# ${env.frontmatter.title}`) + html;
+    //       return html;
+    //     },
+    //   },
+    // },
     editLink: {
       pattern:
         "https://github.com/open17/vitepress-theme-open17/edit/master/docs/:path",
@@ -125,4 +135,4 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
   },
   buildEnd: genFeed,
-});
+}));

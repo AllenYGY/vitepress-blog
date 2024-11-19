@@ -1,0 +1,35 @@
+name: Update code
+
+on:
+  push:
+    branches: master
+  schedule:
+    - cron: '0 10 * * *'
+  
+permissions: write-all
+
+jobs:
+  get-problems:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update code 
+        run: |
+          git clone https://github.com/AllenYGY/NOTE.git
+          cd NOTE
+          rm -r .git
+          echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
+          cd ..
+
+      - name: Commit and push changes
+        run: |
+          echo "TRY PUSH"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "更新"
+          git pull
+          git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
