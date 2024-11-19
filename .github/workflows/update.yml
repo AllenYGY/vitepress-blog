@@ -30,13 +30,9 @@ jobs:
       # 提交并推送更新到另一个仓库
       - name: Commit and push changes
         run: |
-          echo "Checking for changes..."
+          echo "TRY PUSH"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          if git diff --quiet; then
-            echo "No changes to commit"
-          else
-            git add .
-            git commit -m "更新"
-            git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
-          fi
+          git add .
+          git commit -m "更新"
+          git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
