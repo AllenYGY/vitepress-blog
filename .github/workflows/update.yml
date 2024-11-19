@@ -20,7 +20,7 @@ jobs:
       # 从私有仓库克隆部分文件
       - name: Update code 
         run: |
-          # 使用 GITHUB_TOKEN 克隆私有仓库
+          echo "Cloning private repository with GITHUB_TOKEN"
           git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/AllenYGY/NOTE.git
           cd NOTE
           rm -r .git
@@ -30,10 +30,13 @@ jobs:
       # 提交并推送更新到另一个仓库
       - name: Commit and push changes
         run: |
-          echo "TRY PUSH"
+          echo "Checking for changes..."
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add .
-          git commit -m "更新"
-          git pull
-          git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add .
+            git commit -m "更新"
+            git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
+          fi
