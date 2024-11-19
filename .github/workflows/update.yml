@@ -15,11 +15,15 @@ jobs:
     steps:
       - name: Configure SSH
         run: |
-          # 创建 .ssh 目录并配置私钥
+          # 配置 SSH 私钥
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Test SSH Connection
+        run: |
+          ssh -vT git@github.com
 
       - name: Clone NOTE repository (source)
         run: |
