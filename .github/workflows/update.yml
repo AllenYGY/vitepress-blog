@@ -13,17 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 检出目标仓库
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 从私有仓库克隆部分文件
       - name: Update code 
         run: |
-          git clone https://github.com/AllenYGY/NOTE.git
+          # 使用 GITHUB_TOKEN 克隆私有仓库
+          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/AllenYGY/NOTE.git
           cd NOTE
           rm -r .git
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
           cd ..
 
+      # 提交并推送更新到另一个仓库
       - name: Commit and push changes
         run: |
           echo "TRY PUSH"
