@@ -25,7 +25,7 @@ jobs:
         run: |
           ssh -vT git@github.com
 
-      - name: Clone NOTE repository (source)
+      - name: Clone NOTE repository
         run: |
           echo "Cloning NOTE repository using SSH"
           git clone git@github.com:AllenYGY/NOTE.git
@@ -34,14 +34,14 @@ jobs:
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
           cd ..
 
-      - name: Commit and push to vitepress-blog (destination)
+      - name: Clone vitepress-blog repository
         run: |
-          echo "Pushing changes to vitepress-blog"
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
+          echo "Cloning vitepress-blog repository using SSH"
           git clone git@github.com:AllenYGY/vitepress-blog.git
           cp -r NOTE/* vitepress-blog/
           cd vitepress-blog
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
           git add .
-          git commit -m "更新: 从 NOTE 仓库同步"
+          git commit -m "同步更新：从 NOTE 仓库复制文件"
           git push origin HEAD:page
