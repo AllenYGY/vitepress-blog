@@ -5,7 +5,7 @@ on:
     branches: master
   schedule:
     - cron: '0 10 * * *'
-  
+
 permissions: write-all
 
 jobs:
@@ -13,37 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 检出目标仓库
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Debug GITHUB_TOKEN
-      - name: Debug GITHUB_TOKEN
+      - name: Configure SSH
         run: |
-          echo "Checking GITHUB_TOKEN availability..."
-          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
-            echo "GITHUB_TOKEN is empty or missing"
-            exit 1
-          else
-            echo "GITHUB_TOKEN is set"
-          fi
+          # 创建 .ssh 目录并配置私钥
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      # 从私有仓库克隆部分文件
-      - name: Update code 
+      - name: Clone NOTE repository (source)
         run: |
-          echo "Cloning private repository with GITHUB_TOKEN"
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/AllenYGY/NOTE.git
+          echo "Cloning NOTE repository using SSH"
+          git clone git@github.com:AllenYGY/NOTE.git
           cd NOTE
           rm -r .git
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
           cd ..
 
-      # 提交并推送更新到另一个仓库
-      - name: Commit and push changes
+      - name: Commit and push to vitepress-blog (destination)
         run: |
-          echo "TRY PUSH"
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          echo "Pushing changes to vitepress-blog"
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git clone git@github.com:AllenYGY/vitepress-blog.git
+          cp -r NOTE/* vitepress-blog/
+          cd vitepress-blog
           git add .
-          git commit -m "更新"
-          git push https://github.com/AllenYGY/vitepress-blog.git -f HEAD:page
+          git commit -m "更新: 从 NOTE 仓库同步"
+          git push origin HEAD:page
