@@ -17,6 +17,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Debug GITHUB_TOKEN
+      - name: Debug GITHUB_TOKEN
+        run: |
+          echo "Checking GITHUB_TOKEN availability..."
+          if [ -z "${{ secrets.GITHUB_TOKEN }}" ]; then
+            echo "GITHUB_TOKEN is empty or missing"
+            exit 1
+          else
+            echo "GITHUB_TOKEN is set"
+          fi
+
       # 从私有仓库克隆部分文件
       - name: Update code 
         run: |
