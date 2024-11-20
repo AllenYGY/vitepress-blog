@@ -19,6 +19,8 @@ only_folders = [
     "Tools",
     "Computer Vision",
     "Machine Learning",
+    "Theory Of Computation",
+    "Compiler Construction",
 ]
 
 # 目标目录（修改为你的路径）

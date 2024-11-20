@@ -27,9 +27,9 @@ const vitepressSidebarOptions = [
 export default defineConfigWithTheme<ThemeConfig>(withMermaid({
   base: '/vitepress-blog/',
   outDir: '../public',
-  title: "VitePress Open17",
+  title: "AllenYGY's Blog",
   lang: "zh-CN",
-  description: "A beautiful & simple blog theme of vitepress",
+  description: "Record AllenYGY's daily studies",
   markdown: {
     // config: MermaidMarkdown,
     // config:(md)=>{ md.use(mermaidItMarkdown) },
@@ -57,17 +57,17 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
-    // search: {
-    //   provider: "local",
-    //   options: {
-    //     _render(src, env, md) {
-    //       const html = md.render(src, env);
-    //       if (env.frontmatter?.title)
-    //         return md.render(`# ${env.frontmatter.title}`) + html;
-    //       return html;
-    //     },
-    //   },
-    // },
+    search: {
+      provider: "local",
+      options: {
+        _render(src, env, md) {
+          const html = md.render(src, env);
+          if (env.frontmatter?.title)
+            return md.render(`# ${env.frontmatter.title}`) + html;
+          return html;
+        },
+      },
+    },
     editLink: {
       pattern:
         "https://github.com/open17/vitepress-theme-open17/edit/master/docs/:path",
