@@ -44,6 +44,7 @@ jobs:
           git config user.email "action@github.com"
           pwd
           rm -rf docs
+          git add .
           ls -a
           mv public/ docs/
           git add ./docs/*
