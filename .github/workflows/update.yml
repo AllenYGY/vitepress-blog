@@ -29,16 +29,18 @@ jobs:
       - name: Clone NOTE repository
         run: |
           echo "Cloning NOTE repository using SSH"
-          git clone git@github.com:AllenYGY/NOTE.git
-          cd NOTE
+          cd docs/posts
+          git clone git@github.com:AllenYGY/NOTE.git 
           rm -r .git
+          cd ..
+          python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
           cd ..
 
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
-          cp -r NOTE/* .
+          
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
