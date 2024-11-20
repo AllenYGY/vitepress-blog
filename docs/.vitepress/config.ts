@@ -25,6 +25,7 @@ const vitepressSidebarOptions = [
 ];
 
 export default defineConfigWithTheme<ThemeConfig>(withMermaid({
+  base: '/vitepress-blog/',
   outDir: '../public',
   title: "VitePress Open17",
   lang: "zh-CN",
