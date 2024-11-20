@@ -29,11 +29,11 @@ jobs:
       - name: Clone NOTE repository
         run: |
           echo "Cloning NOTE repository using SSH"
-          cd docs/posts
+          cd docs
           git clone git@github.com:AllenYGY/NOTE.git 
           cd NOTE
           rm -r .git
-          cd ../../..
+          cd ../..
           pwd
           python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
