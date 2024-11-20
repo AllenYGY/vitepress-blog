@@ -43,7 +43,7 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           pwd
-          rm docs -r -f
+          rm -rf docs
           mv public/ docs/
           git add ./docs/*
           git add update.txt
