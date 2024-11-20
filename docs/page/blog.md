@@ -2,8 +2,8 @@
 layout: blog
 lastUpdated: false
 bgImage:
-  light: "/bg.jpg"
-  dark: "/bg2_dark.jpg"
+  light: "https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/dave-hoefler-yYABaqHw9WQ.jpg"
+  dark: 'https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/patrick-schneider-PLrscRq3atA.jpg'
 widgets:
   - name: "音乐播放器"
     link: "/posts/2024-10-17-music-player"
