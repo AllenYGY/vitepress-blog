@@ -40,9 +40,9 @@ jobs:
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
-          
+
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          git add .
+          git add ./public/*
           git commit -m "同步更新：从 NOTE 仓库复制文件"
           git push origin HEAD:page

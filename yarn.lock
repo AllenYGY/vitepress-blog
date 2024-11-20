@@ -283,6 +283,13 @@
   resolved "https://mirrors.huaweicloud.com/repository/npm/@esbuild/darwin-arm64/-/darwin-arm64-0.21.5.tgz"
   integrity sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==
 
+"@eslint/plugin-kit@0.2.3":
+  version "0.2.3"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/@eslint/plugin-kit/-/plugin-kit-0.2.3.tgz"
+  integrity sha512-2b/g5hRmpbb1o4GnTZax9N9m0FXzz9OV42ZzI4rDDMDuHUqigAiQCEWChBWCY4ztAGVRjoWT19v0yMmc5/L5kA==
+  dependencies:
+    levn "^0.4.1"
+
 "@giscus/vue@^3.0.0":
   version "3.0.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@giscus/vue/-/vue-3.0.0.tgz"
@@ -1956,6 +1963,14 @@ layout-base@^2.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/layout-base/-/layout-base-2.0.1.tgz"
   integrity sha512-dp3s92+uNI1hWIpPGH3jK2kxE2lMjdXdr+DH8ynZHpd6PUlH6x6cbuXnoMmiNumznqaNO31xu9e79F0uuZ0JFg==
 
+levn@^0.4.1:
+  version "0.4.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/levn/-/levn-0.4.1.tgz"
+  integrity sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==
+  dependencies:
+    prelude-ls "^1.2.1"
+    type-check "~0.4.0"
+
 linkify-it@^4.0.1:
   version "4.0.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/linkify-it/-/linkify-it-4.0.1.tgz"
@@ -2596,6 +2611,11 @@ preact@^10.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/preact/-/preact-10.20.0.tgz"
   integrity sha512-wU7iZw2BjsaKDal3pDRDy/HpPB6cuFOnVUCcw9aIPKG98+ZrXx3F+szkos8BVME5bquyKDKvRlOJFG8kMkcAbg==
 
+prelude-ls@^1.2.1:
+  version "1.2.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/prelude-ls/-/prelude-ls-1.2.1.tgz"
+  integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
 promise-polyfill@7.1.0:
   version "7.1.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/promise-polyfill/-/promise-polyfill-7.1.0.tgz"
@@ -2902,6 +2922,13 @@ tslib@^2.2.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
 
+type-check@~0.4.0:
+  version "0.4.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/type-check/-/type-check-0.4.0.tgz"
+  integrity sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==
+  dependencies:
+    prelude-ls "^1.2.1"
+
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"
   resolved "https://mirrors.huaweicloud.com/repository/npm/uc.micro/-/uc.micro-1.0.6.tgz"
@@ -3023,11 +3050,12 @@ vitepress-sidebar@^1.22.0:
   dependencies:
     gray-matter "^4.0.3"
 
-vitepress-theme-open17@1.3.0-beta.2:
-  version "1.3.0-beta.2"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/vitepress-theme-open17/-/vitepress-theme-open17-1.3.0-beta.2.tgz"
-  integrity sha512-4ye2/9qQ8yCr4zcrCvGyGtvprbLg2+DtFOTpBFYsFxPf4DrUIyPZrLKQ8KpYQQ4+qiytSrT9XCEb7sLRJpVcOw==
+vitepress-theme-open17@1.3.0-beta.8:
+  version "1.3.0-beta.8"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/vitepress-theme-open17/-/vitepress-theme-open17-1.3.0-beta.8.tgz"
+  integrity sha512-sR8RhU7p4Tveypw7MRXxZANHgG3EQKIuIVTehwweIwxEj/IzGGKHGTfq1Ucz61HdyvtqK9OuFAfsZksv+YKrIw==
   dependencies:
+    "@eslint/plugin-kit" "0.2.3"
     feed "^4.2.2"
 
 "vitepress@^1.0.0 || ^1.0.0-alpha", vitepress@^1.0.1, vitepress@^1.3.4:
