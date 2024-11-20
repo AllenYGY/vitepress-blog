@@ -132,3 +132,4 @@ docs/.vitepress/cache/*
 github-actions.pub
 github-actions
 ignore/
+public/
