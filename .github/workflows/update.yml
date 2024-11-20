@@ -46,4 +46,5 @@ jobs:
           git add ./public/*
           git add update.txt
           git commit -m "同步更新：从 NOTE 仓库复制文件"
-          git push origin HEAD:page
+          git push -f origin HEAD:page
+          
