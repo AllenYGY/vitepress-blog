@@ -37,6 +37,22 @@ jobs:
           python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # 可根据需要指定具体版本
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          echo "Installing dependencies"
+          npm install
+
+      - name: Build vitepress-blog
+        run: |
+          echo "Building vitepress-blog"
+          npm run build
+
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
