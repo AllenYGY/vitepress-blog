@@ -43,8 +43,8 @@ jobs:
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           pwd
-          rm docs
-          mv public docs
+          rm docs -r -f
+          mv public/ docs/
           git add ./docs/*
           git add update.txt
           git commit -m "同步更新：从 NOTE 仓库复制文件"
