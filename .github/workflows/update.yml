@@ -37,12 +37,10 @@ jobs:
           pwd
           python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
-          cd ..
 
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
-
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add ./public/*
