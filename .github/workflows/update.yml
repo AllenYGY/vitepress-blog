@@ -47,7 +47,6 @@ jobs:
           git add .
           ls -a
           mv public/ docs/
-          git add ./docs/*
-          git add update.txt
+          git add .
           git commit -m "同步更新：从 NOTE 仓库复制文件"
           git push -f origin HEAD:page
