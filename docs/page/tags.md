@@ -2,6 +2,6 @@
 layout: tags
 lastUpdated: false
 bgImage:
-  light: "/bg.jpg"
-  dark: "/bg2_dark.jpg"
+  light: "https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/dave-hoefler-yYABaqHw9WQ.jpg"
+  dark: 'https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/patrick-schneider-PLrscRq3atA.jpg'
 ---
