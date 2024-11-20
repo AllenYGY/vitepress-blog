@@ -80,7 +80,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     blog: {
       tagPageLink: "/page/tags",
-      bgImage: { dark: "https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/patrick-schneider-PLrscRq3atA.jpg" ,light:"https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/museum-of-new-zealand-te-papa-tongarewa-EynhuYbe4V4-unsplash.jpg"},
+      bgImage: { dark: "https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/patrick-schneider-PLrscRq3atA.jpg" ,
+        light:"https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/museum-of-new-zealand-te-papa-tongarewa-EynhuYbe4V4-unsplash.jpg"},
       direct: "lft",
       user: {
         name: "AllenYGY",
