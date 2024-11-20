@@ -87,6 +87,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
         avatar: "/ava.png",
         describe: "A beautiful & simple blog theme of vitepress",
       },
+      usingTitleFromFrontmatter: false,
     },
     home: {
       maxTagsDisplayed: 20,
