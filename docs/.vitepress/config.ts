@@ -53,7 +53,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       })();
     `,
     ],
-    ["meta", { name: "keywords", content: "vitepress, theme, blog, open17" }],
+    ["meta", { name: "keywords", content: "vitepress, theme, blog, AllenYGY" }],
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
@@ -131,7 +131,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     socialLinks: [
       {
         icon: "github",
-        link: "https://github.com/open17/vitepress-theme-open17/",
+        link: "https://github.com/AllenYGY/",
       },
     ],
   },
