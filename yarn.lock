@@ -2636,6 +2636,11 @@ regex@^4.3.2:
   resolved "https://mirrors.huaweicloud.com/repository/npm/regex/-/regex-4.3.2.tgz"
   integrity sha512-kK/AA3A9K6q2js89+VMymcboLOlF5lZRCYJv3gzszXFHBr6kO6qLGzbm+UIugBEV8SMMKCTR59txoY6ctRHYVw==
 
+reveal.js@^5.1.0:
+  version "5.1.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/reveal.js/-/reveal.js-5.1.0.tgz"
+  integrity sha512-KDt7m0+xwKV6nAZt4CNPVFBf42sTKRQapg0bGGKB5PKO5XvChnMfwlZkybydHiQJ7p5+6LbHKRGrhXODdoNIaA==
+
 rfdc@^1.4.1:
   version "1.4.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/rfdc/-/rfdc-1.4.1.tgz"
