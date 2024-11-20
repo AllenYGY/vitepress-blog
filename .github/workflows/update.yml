@@ -34,7 +34,6 @@ jobs:
           cd NOTE
           rm -r .git
           cd ../..
-          pwd
           python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
 
@@ -43,6 +42,8 @@ jobs:
           echo "Syncing files from NOTE to vitepress-blog"
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+          pwd
           git add ./public/*
+          git add update.txt
           git commit -m "同步更新：从 NOTE 仓库复制文件"
           git push origin HEAD:page
