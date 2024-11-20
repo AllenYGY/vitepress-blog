@@ -84,7 +84,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       direct: "lft",
       user: {
         name: "AllenYGY",
-        avatar: "/ava.png",
+        avatar: "https://avatars.githubusercontent.com/u/121916671?v=4",
         describe: "A beautiful & simple blog theme of vitepress",
       },
       usingTitleFromFrontmatter: false,
