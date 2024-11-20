@@ -83,8 +83,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       bgImage: { dark: "/bg_dark.jpg" },
       direct: "lft",
       user: {
-        name: "Open17",
-        avatar: "/ava.jpg",
+        name: "AllenYGY",
+        avatar: "/ava.png",
         describe: "A beautiful & simple blog theme of vitepress",
       },
     },

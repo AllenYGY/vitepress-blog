@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: blog
 lastUpdated: false
 bgImage: 
   light: "/bg.jpg"
