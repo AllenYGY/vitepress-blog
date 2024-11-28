@@ -13,13 +13,13 @@ only_folders = [
     "Deep Learning",
     "Share",
     "Computer Organization",
-    # "Computer Network",
+    "Computer Network",
     "Operating System",
-    "Tools",
     "Computer Vision",
     "Machine Learning",
     "Theory Of Computation",
     "Compiler Construction",
+    "Tools"
 ]
 
 # 目标目录（修改为你的路径）
