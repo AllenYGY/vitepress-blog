@@ -1,3 +1,71 @@
+# name: Update code
+
+# on:
+#   push:
+#     branches: master
+#   schedule:
+#     - cron: '0 10 * * *'
+
+# permissions: write-all
+
+# jobs:
+#   get-problems:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout vitepress-blog
+#         uses: actions/checkout@v2
+#         with:
+#           repository: AllenYGY/vitepress-blog
+#           ref: master
+
+#       - name: Configure SSH
+#         run: |
+#           mkdir -p ~/.ssh
+#           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+#           chmod 600 ~/.ssh/id_rsa
+#           ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+#       - name: Clone NOTE repository
+#         run: |
+#           echo "Cloning NOTE repository using SSH"
+#           cd docs
+#           git clone git@github.com:AllenYGY/NOTE.git 
+#           cd NOTE
+#           rm -r .git
+#           cd ../..
+#           python movefolder.py
+#           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18 # 可根据需要指定具体版本
+#           cache: 'npm'
+
+#       - name: Install dependencies
+#         run: |
+#           echo "Installing dependencies"
+#           npm install
+
+#       - name: Build vitepress-blog
+#         run: |
+#           echo "Building vitepress-blog"
+#           npm run build
+
+#       - name: Sync with vitepress-blog repository
+#         run: |
+#           echo "Syncing files from NOTE to vitepress-blog"
+#           git config user.name "GitHub Action"
+#           git config user.email "action@github.com"
+#           pwd
+#           rm -rf docs
+#           git add .
+#           ls -a
+#           mv public/ docs/
+#           git add .
+#           git commit -m "同步更新：从 NOTE 仓库复制文件"
+#           git push -f origin HEAD:page
 name: Update code
 
 on:
@@ -40,7 +108,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # 可根据需要指定具体版本
+          node-version: 18
           cache: 'npm'
 
       - name: Install dependencies
@@ -51,7 +119,7 @@ jobs:
       - name: Build vitepress-blog
         run: |
           echo "Building vitepress-blog"
-          npm run build
+          node --max-old-space-size=4096 $(npm bin)/vitepress build
 
       - name: Sync with vitepress-blog repository
         run: |
