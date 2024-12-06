@@ -1,4 +1,4 @@
-name: Update code
+name: 更新代码
 
 on:
   push:
@@ -9,16 +9,18 @@ on:
 permissions: write-all
 
 jobs:
-  get-problems:
+  update-code:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: 检出 vitepress-blog 仓库
       - name: Checkout vitepress-blog
         uses: actions/checkout@v2
         with:
           repository: AllenYGY/vitepress-blog
           ref: master
 
+      # Step 2: 配置 SSH
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -26,6 +28,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+      # Step 3: 克隆 NOTE 仓库
       - name: Clone NOTE repository
         run: |
           echo "Cloning NOTE repository using SSH"
@@ -37,22 +40,35 @@ jobs:
           python movefolder.py
           echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
 
+      # Step 4: 设置 Node.js 环境
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # 可根据需要指定具体版本
+          node-version: 18
           cache: 'npm'
 
+      # Step 5: 缓存 Node.js 依赖
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 6: 安装依赖
       - name: Install dependencies
         run: |
           echo "Installing dependencies"
           npm install
 
+      # Step 7: 构建 vitepress-blog
       - name: Build vitepress-blog
         run: |
           echo "Building vitepress-blog"
-          npm run build
+          NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
+      # Step 8: 同步更新到 vitepress-blog 仓库
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
