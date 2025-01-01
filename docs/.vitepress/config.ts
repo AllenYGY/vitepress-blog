@@ -137,12 +137,12 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
-          { text: "Theory Of Computation", link: "/posts/Theory Of Computation/01-TOC-Intro/" },
-          { text: "Compiler Construction", link: "/posts/Compiler Construction/01-Compiler Introduction/" },
-          { text: "Computer Network", link: "/posts/Computer Network/01-Basic Concepts/" },
-          { text: "Database Management System", link: "/posts/Database Management System/01-Entity-Relationship-Model-Modeling/" },
-          { text: "Computer Organization", link: "/posts/Computer Organization/01-What is a Computer/" },
-          { text: "Operating System", link: "/posts/Operating System/01-Operating System Introduction/" },
+          { text: "Theory Of Computation", link: "/posts/Theory Of Computation/Lecture//01-TOC-Intro/" },
+          { text: "Compiler Construction", link: "/posts/Compiler Construction/Lecture/01-Compiler Introduction/" },
+          { text: "Computer Network", link: "/posts/Computer Network/Lecture/01-Basic Concepts/" },
+          { text: "Database Management System", link: "/posts/Database Management System/RDBMS/01-Entity-Relationship-Model-Modeling/" },
+          { text: "Computer Organization", link: "/posts/Computer Organization/Lecture/01-What is a Computer/" },
+          { text: "Operating System", link: "/posts/Operating System/Lecture/01-Operating System Introduction/" },
         ],
        },
 
