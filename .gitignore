@@ -133,3 +133,4 @@ github-actions.pub
 github-actions
 ignore/
 public/
+*.DS_Store
