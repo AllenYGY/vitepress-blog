@@ -22,6 +22,17 @@ const vitepressSidebarOptions = [
     useFolderLinkFromIndexFile: true,
     rootGroupCollapsed: true,
   },
+  {
+    documentRootPath: "docs",
+    scanStartPath: "posts",
+    resolvePath: "/posts/",
+    collapsed: true,
+    useTitleFromFileHeading: true,
+    useFolderTitleFromIndexFile: true,
+    useFolderLinkFromIndexFile: true,
+    rootGroupCollapsed: true,
+  },
+
 ];
 
 export default defineConfigWithTheme<ThemeConfig>(withMermaid({
@@ -120,6 +131,9 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     nav: [
       { text: "Home", link: "/" },
+      { text: "Blog", link: "/page/blog" },
+      { text: "Tags", link: "/page/tags" },
+      { text: "Archive", link: " /page/archive" },
       // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
@@ -132,14 +146,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
           { text: "Algorithm", link: "/posts/Algorithm/" },
         ],
        },
-      {
-        text: "Demo",
-        items: [
-          { text: "Blog", link: "/page/blog" },
-          { text: "Tags", link: "/page/tags" },
-          { text: "Archive", link: " /page/archive" },
-        ],
-      },
+
     ],
     socialLinks: [
       {
