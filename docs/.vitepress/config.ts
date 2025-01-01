@@ -120,7 +120,17 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     nav: [
       { text: "Home", link: "/" },
-      { text: "Guide", link: "/guide/0-intro/" },
+      // { text: "Guide", link: "/guide/0-intro/" },
+      { text: "Note", 
+        items: [
+          { text: "Compiler Construction", link: "/posts/Compiler Construction/" },
+          { text: "Computer Network", link: "/posts/Computer Network/" },
+          { text: "Computer Organization", link: "/posts/Computer Organization/" },
+          { text: "Operating System", link: "/posts/Operating System/" },
+          { text: "Theory Of Computation", link: "/posts/Theory Of Computation/" },
+          { text: "Algorithm", link: "/posts/Algorithm/" },
+        ],
+       },
       {
         text: "Demo",
         items: [
