@@ -125,6 +125,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
         items: [
           { text: "Compiler Construction", link: "/posts/Compiler Construction/" },
           { text: "Computer Network", link: "/posts/Computer Network/" },
+          { text: "Database Management System", link: "/posts/Database Management System/" },
           { text: "Computer Organization", link: "/posts/Computer Organization/" },
           { text: "Operating System", link: "/posts/Operating System/" },
           { text: "Theory Of Computation", link: "/posts/Theory Of Computation/" },
