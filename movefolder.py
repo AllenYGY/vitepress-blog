@@ -10,7 +10,7 @@ only_folders = [
     "Web",
     "Database Management System",
     "Research",
-    # "Deep Learning",
+    "Deep Learning",
     "Share",
     "Computer Organization",
     "Computer Network",
