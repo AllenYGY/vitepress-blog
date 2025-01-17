@@ -18,7 +18,7 @@ only_folders = [
     "Computer Vision",
     "Machine Learning",
     "Theory Of Computation",
-    "Compiler Construction",
+    # "Compiler Construction",
     "Tools"
 ]
 
