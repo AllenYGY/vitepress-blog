@@ -1,0 +1,14 @@
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: docs/posts
+    view:
+      fields: [ title, author, date ]
+    fields:
+      - { name: author, label: Author, type: string }
+      - { name: pubDatetime, label: Date, type: date }
+      - { name: modDatetime, label: Date, type: date }
+      - { name: title, label: Title, type: string, required: true }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: description, label: Description, type: string }
