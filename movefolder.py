@@ -7,7 +7,7 @@ only_folders = {
     "Database Management System", "Research", "Deep Learning", "Share",
     "Computer Organization", "Computer Network", "Operating System",
     "Computer Vision", "Machine Learning", "Theory Of Computation",
-    "Compiler Construction", "Tools","Computer Graphics","Software Engineering"
+    "Compiler Construction", "Tools","Computer Graphics","Software Engineering","Functional Programming",
 }
 
 # 源目录和目标目录
