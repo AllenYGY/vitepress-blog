@@ -44,8 +44,6 @@ def process_folder(folder_path):
                 file_path = os.path.join(root, file)
                 process_md_file(file_path)
 
-# 指定文件夹路径
 folder_path = "../NOTE"  # 替换为你的文件夹路径
 
-# 调用处理函数
 process_folder(folder_path)
