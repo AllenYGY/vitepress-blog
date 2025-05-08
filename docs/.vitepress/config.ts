@@ -36,7 +36,6 @@ const vitepressSidebarOptions = [
 ];
 
 export default defineConfigWithTheme<ThemeConfig>(withMermaid({
-  base: '/vitepress-blog/',
   outDir: '../public',
   title: "AllenYGY's Blog",
   lang: "zh-CN",
