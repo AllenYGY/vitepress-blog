@@ -1,0 +1,57 @@
+import{_ as s,c as a,a5 as p,o as e}from"./chunks/framework.CHhwEXkI.js";const d=JSON.parse('{"title":"Pairwise-sequence-alignment","description":"","frontmatter":{"date":"2024-09-25T00:00:00.000Z","title":"Pairwise-sequence-alignment","status":"DONE","author":["AllenYGY"],"tags":["Lab","Bioinfo"],"publish":true},"headers":[],"relativePath":"posts/Bioinfo/Lab/Lab-1/Pairwise-sequence-alignment.md","filePath":"posts/Bioinfo/Lab/Lab-1/Pairwise-sequence-alignment.md","lastUpdated":null}'),l={name:"posts/Bioinfo/Lab/Lab-1/Pairwise-sequence-alignment.md"};function i(c,n,t,o,L,S){return e(),a("div",null,n[0]||(n[0]=[p(`<div class="language-txt vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">txt</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span>########################################</span></span>
+<span class="line"><span># Program: needle</span></span>
+<span class="line"><span># Rundate: Wed 25 Sep 2024 07:11:13</span></span>
+<span class="line"><span># Commandline: needle</span></span>
+<span class="line"><span>#    -auto</span></span>
+<span class="line"><span>#    -stdout</span></span>
+<span class="line"><span>#    -asequence emboss_needle-I20240925-071108-0349-62579891-p1m.asequence</span></span>
+<span class="line"><span>#    -bsequence emboss_needle-I20240925-071108-0349-62579891-p1m.bsequence</span></span>
+<span class="line"><span>#    -datafile EBLOSUM62</span></span>
+<span class="line"><span>#    -gapopen 10.0</span></span>
+<span class="line"><span>#    -gapextend 0.5</span></span>
+<span class="line"><span>#    -endopen 10.0</span></span>
+<span class="line"><span>#    -endextend 0.5</span></span>
+<span class="line"><span>#    -aformat3 pair</span></span>
+<span class="line"><span>#    -sprotein1</span></span>
+<span class="line"><span>#    -sprotein2</span></span>
+<span class="line"><span># Align_format: pair</span></span>
+<span class="line"><span># Report_file: stdout</span></span>
+<span class="line"><span>########################################</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#=======================================</span></span>
+<span class="line"><span>#</span></span>
+<span class="line"><span># Aligned_sequences: 2</span></span>
+<span class="line"><span># 1: EMBOSS_001</span></span>
+<span class="line"><span># 2: EMBOSS_001</span></span>
+<span class="line"><span># Matrix: EBLOSUM62</span></span>
+<span class="line"><span># Gap_penalty: 10.0</span></span>
+<span class="line"><span># Extend_penalty: 0.5</span></span>
+<span class="line"><span>#</span></span>
+<span class="line"><span># Length: 199</span></span>
+<span class="line"><span># Identity:     176/199 (88.4%)</span></span>
+<span class="line"><span># Similarity:   186/199 (93.5%)</span></span>
+<span class="line"><span># Gaps:           0/199 ( 0.0%)</span></span>
+<span class="line"><span># Score: 962.0</span></span>
+<span class="line"><span># </span></span>
+<span class="line"><span>#</span></span>
+<span class="line"><span>#=======================================</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>EMBOSS_001         1 MEASPASGPRHLMDPHIFTSNFNNGIGRHKTYLCYEVERLDNGTSVKMDQ     50</span></span>
+<span class="line"><span>                     |||||||||||||||.:|||||||||..||||||||||||||||.|||||</span></span>
+<span class="line"><span>EMBOSS_001         1 MEASPASGPRHLMDPCVFTSNFNNGIRWHKTYLCYEVERLDNGTWVKMDQ     50</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>EMBOSS_001        51 HRGFLHNQAKNLLCGFYGRHAELRFLDLVPSLQLDPAQIYRVTWFISWSP    100</span></span>
+<span class="line"><span>                     |||||||||:|.|.|..|||||||||.|:|..||||||||||||||||||</span></span>
+<span class="line"><span>EMBOSS_001        51 HRGFLHNQARNPLYGLDGRHAELRFLGLLPYWQLDPAQIYRVTWFISWSP    100</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>EMBOSS_001       101 CFSWGCAGEVRAFLQENTHVRLRIFAARIYDYDPLYKEALQMLRDAGAQV    150</span></span>
+<span class="line"><span>                     |||||||.:|||||||||||||||||||||||||||||||||||||||||</span></span>
+<span class="line"><span>EMBOSS_001       101 CFSWGCARQVRAFLQENTHVRLRIFAARIYDYDPLYKEALQMLRDAGAQV    150</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>EMBOSS_001       151 SIMTYDEFKHCWDTFVDHQGCPFQPWDGLDEHSQALSGRLRAILQNQGN    199</span></span>
+<span class="line"><span>                     ||||||||::||:||||||||||||||||:||||||||:|:|||.||||</span></span>
+<span class="line"><span>EMBOSS_001       151 SIMTYDEFEYCWNTFVDHQGCPFQPWDGLEEHSQALSGKLQAILLNQGN    199</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>#---------------------------------------</span></span>
+<span class="line"><span>#---------------------------------------</span></span></code></pre></div>`,1)]))}const E=s(l,[["render",i]]);export{d as __pageData,E as default};
