@@ -79,6 +79,12 @@ jobs:
           git add .
           ls -a
           mv public/ docs/
+          # 确保CNAME文件存在于根目录
+          if [ -f "docs/CNAME" ]; then
+            echo "CNAME file found and will be preserved"
+          else
+            echo "Warning: CNAME file not found"
+          fi
           git add .
           git commit -m "同步更新：从 NOTE 仓库复制文件"
           git push -f origin HEAD:page

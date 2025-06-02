@@ -2,13 +2,7 @@ import type { ThemeConfig } from "vitepress-theme-open17/config";
 import { genFeed } from "vitepress-theme-open17/genFeed";
 import { defineConfigWithTheme } from "vitepress";
 import { generateSidebar } from "vitepress-sidebar";
-// import  { MermaidMarkdown } from "vitepress-plugin-mermaid";
-// import { MermaidMarkdown, MermaidPlugin } from "vitepress-plugin-mermaid";
-// import { MermaidConfig } from 'mermaid';
 import { withMermaid } from "vitepress-plugin-mermaid";
-
-// import mermaidItMarkdown from 'mermaid-it-markdown';
-
 
 
 const vitepressSidebarOptions = [
