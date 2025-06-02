@@ -68,23 +68,28 @@ jobs:
           echo "Building vitepress-blog"
           NODE_OPTIONS="--max-old-space-size=4096" npm run build
 
+      # Step 7.5: 确保 CNAME 文件存在于 public 目录
+      - name: Ensure CNAME in public
+        run: |
+          if [ -f "CNAME" ]; then
+            cp CNAME public/CNAME
+            echo "CNAME copied to public/"
+          fi
+
       # Step 8: 同步更新到 vitepress-blog 仓库
       - name: Sync with vitepress-blog repository
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
-          pwd
           rm -rf docs
           git add .
-          ls -a
           mv public/ docs/
-          # 确保CNAME文件存在于根目录
           if [ -f "docs/CNAME" ]; then
             echo "CNAME file found and will be preserved"
           else
             echo "Warning: CNAME file not found"
           fi
           git add .
-          git commit -m "同步更新：从 NOTE 仓库复制文件"
+          git commit -m "Synchronous updates: Copy files from the NOTE repository"
           git push -f origin HEAD:page
