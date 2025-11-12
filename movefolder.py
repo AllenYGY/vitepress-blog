@@ -24,7 +24,7 @@ ONLY_FOLDERS = {
     "Software Engineering",
     "Functional Programming",
     "Bayesian Network",
-    "Math",
+    "Math/Calculus",
 }
 
 # 源目录和目标目录
