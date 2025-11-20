@@ -64,6 +64,8 @@ jobs:
 
       # Step 7: 构建 vitepress-blog
       - name: Build vitepress-blog
+        env: 
+          NODE_OPTIONS: "--max-old-space-size=4096"
         run: |
           echo "Building vitepress-blog"
           NODE_OPTIONS="--max-old-space-size=4096" npm run build
