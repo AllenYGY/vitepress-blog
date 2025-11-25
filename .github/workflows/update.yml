@@ -62,13 +62,24 @@ jobs:
           echo "Installing dependencies"
           npm install
 
+      # --- NEW STEP: Create Swap Space ---
+      # adds 4GB of swap memory to prevent OOM errors
+      - name: Set up Swap Space
+        run: |
+          sudo fallocate -l 4G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          sudo swapon --show
+
       # Step 7: 构建 vitepress-blog
       - name: Build vitepress-blog
         env: 
-          NODE_OPTIONS: "--max-old-space-size=4096"
+          # Increased from 4096 to 6144 (6GB)
+          NODE_OPTIONS: "--max-old-space-size=6144"
         run: |
           echo "Building vitepress-blog"
-          NODE_OPTIONS="--max-old-space-size=4096" npm run build
+          npm run build
 
       # Step 7.5: 确保 CNAME 文件存在于 public 目录
       - name: Ensure CNAME in public
