@@ -39,6 +39,14 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     // config: MermaidMarkdown,
     // config:(md)=>{ md.use(mermaidItMarkdown) },
     math: true,
+    shikiConfig: {
+      langAlias: {
+        pseudo: "txt",
+        pseudocode: "txt",
+        "function-plot": "json",
+        functionplot: "json",
+      },
+    },
     config: (md) => {
       const defaultFence =
         md.renderer.rules.fence?.bind(md.renderer.rules) ??
