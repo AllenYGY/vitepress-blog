@@ -1026,6 +1026,13 @@ buffer-from@^1.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/buffer-from/-/buffer-from-1.1.2.tgz"
   integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
 
+built-in-math-eval@^0.3.0:
+  version "0.3.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/built-in-math-eval/-/built-in-math-eval-0.3.0.tgz"
+  integrity sha512-5XD5cujru60ooKJ4sGZqoH5v2Xvgw7ezV54gJX/OnPkgDKoH3BnlMEi8xW6hl8xaEjxKHebgrsawroeZnGwIMA==
+  dependencies:
+    math-codegen "^0.3.5"
+
 ccount@^2.0.0:
   version "2.0.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/ccount/-/ccount-2.0.1.tgz"
@@ -1088,6 +1095,11 @@ chevrotain@^11.0.0, chevrotain@~11.0.3:
     "@chevrotain/types" "11.0.3"
     "@chevrotain/utils" "11.0.3"
     lodash-es "4.17.21"
+
+clamp@^1.0.1:
+  version "1.0.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/clamp/-/clamp-1.0.1.tgz"
+  integrity sha512-kgMuFyE78OC6Dyu3Dy7vcx4uy97EIbVxJB/B0eJ3bUNAkwdNcxYzgKltnyADiYwsR7SEqkkUPsEUT//OVS6XMA==
 
 color-convert@^2.0.1:
   version "2.0.1"
@@ -1601,6 +1613,11 @@ domutils@^2.4.2, domutils@^2.5.2, domutils@^2.8.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
+double-bits@^1.1.0:
+  version "1.1.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/double-bits/-/double-bits-1.1.1.tgz"
+  integrity sha512-BCLEIBq0O/DWoA7BsCu/R+RP0ZXiowP8BhtJT3qeuuQEBpnS8LK/Wo6UTJQv6v8mK1fj8n90YziHLwGdM5whSg==
+
 eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/eastasianwidth/-/eastasianwidth-0.2.0.tgz"
@@ -1702,6 +1719,11 @@ extend-shallow@^2.0.1:
   dependencies:
     is-extendable "^0.1.0"
 
+extend@^3.0.0, extend@^3.0.2:
+  version "3.0.2"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/extend/-/extend-3.0.2.tgz"
+  integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
+
 feed@^4.2.2:
   version "4.2.2"
   resolved "https://mirrors.huaweicloud.com/repository/npm/feed/-/feed-4.2.2.tgz"
@@ -1728,6 +1750,23 @@ fsevents@~2.3.2, fsevents@~2.3.3:
   version "2.3.3"
   resolved "https://mirrors.huaweicloud.com/repository/npm/fsevents/-/fsevents-2.3.3.tgz"
   integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
+function-plot@^1.19.1:
+  version "1.19.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/function-plot/-/function-plot-1.19.1.tgz"
+  integrity sha512-slRZ1sk1UuEU3Df2gUm+/hFlOFDQrFfVbhWpGjvqcwT7SICptBSkg5u4MpBnyE/ardY3EiBW/Bs6TCo39sly1Q==
+  dependencies:
+    built-in-math-eval "^0.3.0"
+    clamp "^1.0.1"
+    extend "^3.0.0"
+    integrate-adaptive-simpson "^1.0.3"
+    interval-arithmetic-eval "^0.4.6"
+    is-object "^1.0.1"
+    key-pressed "0.0.1"
+    keydown "0.0.3"
+    linspace "1.0.0"
+    log10 "^1.0.0"
+    logspace "1.0.1"
 
 giscus@^1.5.0:
   version "1.5.0"
@@ -1834,6 +1873,11 @@ ini@^1.3.4:
   resolved "https://mirrors.huaweicloud.com/repository/npm/ini/-/ini-1.3.8.tgz"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
+integrate-adaptive-simpson@^1.0.3:
+  version "1.1.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/integrate-adaptive-simpson/-/integrate-adaptive-simpson-1.1.1.tgz"
+  integrity sha512-PYMJUQTHDpdqj83C+FfgKEG1dFSGFp0ltIkTc8zSeZukNQhMUlK2oBs6G9ZNdV8GCeOMckvBdb29mauNnozZUg==
+
 internmap@^1.0.0:
   version "1.0.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/internmap/-/internmap-1.0.1.tgz"
@@ -1844,15 +1888,40 @@ internmap@^1.0.0:
   resolved "https://mirrors.huaweicloud.com/repository/npm/internmap/-/internmap-2.0.3.tgz"
   integrity sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==
 
+interval-arithmetic-eval@^0.4.6:
+  version "0.4.8"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/interval-arithmetic-eval/-/interval-arithmetic-eval-0.4.8.tgz"
+  integrity sha512-iKVPv/CIeJTGWP0sxe6K8TCL6PX4XAU4WkctV7TVRRfibgYgdMhS+qqiBxMxin0NrY+j7nwub/0yQQtS5fZzFg==
+  dependencies:
+    interval-arithmetic "^1.0.7"
+    math-codegen "^0.4.0"
+
+interval-arithmetic@^1.0.7:
+  version "1.1.2"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/interval-arithmetic/-/interval-arithmetic-1.1.2.tgz"
+  integrity sha512-FmonKqVk5HVc4G79d16rQmCb6zOwv0o4LidhJKtdGTwpc3Kk9UZ5t6UE1AQHFF5RdQaSIQs0AYe5rySFT8C1Ww==
+  dependencies:
+    nextafter "^1.0.0"
+
 is-extendable@^0.1.0:
   version "0.1.1"
   resolved "https://mirrors.huaweicloud.com/repository/npm/is-extendable/-/is-extendable-0.1.1.tgz"
   integrity sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==
 
+is-finite@^1.0.1:
+  version "1.1.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/is-finite/-/is-finite-1.1.0.tgz"
+  integrity sha512-cdyMtqX/BOqqNBBiKlIVkytNHm49MtMlYyn1zxzvJKWmFMlGzm+ry5BBfYyeY9YmNKbRSo/o7OX9w9ale0wg3w==
+
 is-fullwidth-code-point@^3.0.0:
   version "3.0.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz"
   integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
+
+is-object@^1.0.1:
+  version "1.0.2"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/is-object/-/is-object-1.0.2.tgz"
+  integrity sha512-2rRIahhZr2UWb45fIOuvZGpFtz0TyOZLf32KxBbSoUCeZR495zCKlWUKKUByk3geS2eAs7ZAABt0Y/Rx0GiQGA==
 
 is-what@^4.1.8:
   version "4.1.16"
@@ -1908,12 +1977,26 @@ juice@^8.0.0:
     slick "^1.12.2"
     web-resource-inliner "^6.0.1"
 
-katex@^0.16.9:
+katex@^0.16.7, katex@^0.16.9:
   version "0.16.11"
   resolved "https://mirrors.huaweicloud.com/repository/npm/katex/-/katex-0.16.11.tgz"
   integrity sha512-RQrI8rlHY92OLf3rho/Ts8i/XvjgguEjOkO1BEXcU3N8BqPpSzBNwV/G0Ukr+P/l3ivvJUE/Fa/CwbS6HesGNQ==
   dependencies:
     commander "^8.3.0"
+
+key-pressed@0.0.1:
+  version "0.0.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/key-pressed/-/key-pressed-0.0.1.tgz"
+  integrity sha512-Yh5VdkNVTNVXdgWLJh9z8Ky+k2u3SBOklf6J/056FdcunksHcJ5uISKLcoTR15MjRuCQ0AkJiLZSVtOn6cWznQ==
+  dependencies:
+    vkey "0.0.3"
+
+keydown@0.0.3:
+  version "0.0.3"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/keydown/-/keydown-0.0.3.tgz"
+  integrity sha512-o7bAa6BxmUhWNMR2g4c62XwOiYT91zjfpwt2H4fJlCeKA1ymGW/45ki80LbN1h8dexSzyzi28p3VCoddlnYjrw==
+  dependencies:
+    vkey "~0.0.3"
 
 khroma@^2.0.0, khroma@^2.1.0:
   version "2.1.0"
@@ -1971,6 +2054,13 @@ linkify-it@^4.0.1:
   dependencies:
     uc.micro "^1.0.1"
 
+linspace@1.0.0:
+  version "1.0.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/linspace/-/linspace-1.0.0.tgz"
+  integrity sha512-ERgiVs4KYQd3pPHUC12qKXYIK14N/mFw8iLgFXIYw7rfYPKu4uQnM367temO2pjoIqLx9yg6yLuShLcklVJWgA==
+  dependencies:
+    lodash.range "3.1.7"
+
 lit-element@^4.0.4:
   version "4.0.6"
   resolved "https://mirrors.huaweicloud.com/repository/npm/lit-element/-/lit-element-4.0.6.tgz"
@@ -2008,6 +2098,25 @@ lodash-es@^4.17.21, lodash-es@4.17.21:
   version "4.17.21"
   resolved "https://mirrors.huaweicloud.com/repository/npm/lodash-es/-/lodash-es-4.17.21.tgz"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
+lodash.range@3.1.7:
+  version "3.1.7"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/lodash.range/-/lodash.range-3.1.7.tgz"
+  integrity sha512-9q8miua50gTiBw9vRUhQaEAvAViYo1MhU4kSvLs8VzNjJHqIUhfFc3UVLY+GMSQ1s8Rqfb6L9Ex0RtbnoVfI8Q==
+
+log10@^1.0.0:
+  version "1.0.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/log10/-/log10-1.0.1.tgz"
+  integrity sha512-aNvXf5tIDT7BbXAeKK3TQ17R89UJMLRL/BFy2z3a37Tl9F/cL10HiyEojjXBcBPye7wN3qtwny5iGXLeTYV9FA==
+  dependencies:
+    is-finite "^1.0.1"
+
+logspace@1.0.1:
+  version "1.0.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/logspace/-/logspace-1.0.1.tgz"
+  integrity sha512-qyj1Cn2p/t5E2Gny8HcemPT/Jf/N0Is97dH2bPd1/EABq03tM0SOMd24aqQiqa9NApNCkxKfL6K3/Adslrqh5Q==
+  dependencies:
+    linspace "1.0.0"
 
 lru-cache@^10.2.0:
   version "10.4.3"
@@ -2050,6 +2159,22 @@ marked@^13.0.2:
   resolved "https://mirrors.huaweicloud.com/repository/npm/marked/-/marked-13.0.3.tgz"
   integrity sha512-rqRix3/TWzE9rIoFGIn8JmsVfhiuC8VIQ8IdX5TfzmeBucdY05/0UlzKaw0eVtpcN/OdVFpBk7CjKGo9iHJ/zA==
 
+math-codegen@^0.3.5:
+  version "0.3.5"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/math-codegen/-/math-codegen-0.3.5.tgz"
+  integrity sha512-SsFYMv33FxMKYxI1PBiaZT+8AeDITK+k/PKhbHNlOPHIz5FIPF4wy78yWqanN6luXdsXENUZgCIC6xH6bfUq1g==
+  dependencies:
+    extend "^3.0.0"
+    mr-parser "^0.2.1"
+
+math-codegen@^0.4.0:
+  version "0.4.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/math-codegen/-/math-codegen-0.4.1.tgz"
+  integrity sha512-Nb/gZIGfexUlCYfzWC9W9SkoShvOlRTrFLajLQjSNoAvLhiZQH4TzTKRh/3lZdezFcPfCl+SHEcsrYf3bJQTNg==
+  dependencies:
+    extend "^3.0.2"
+    mr-parser "^0.2.1"
+
 mathjax-full@^3.2.0:
   version "3.2.2"
   resolved "https://mirrors.huaweicloud.com/repository/npm/mathjax-full/-/mathjax-full-3.2.2.tgz"
@@ -2059,6 +2184,11 @@ mathjax-full@^3.2.0:
     mhchemparser "^4.1.0"
     mj-context-menu "^0.6.1"
     speech-rule-engine "^4.0.6"
+
+mathjax@^3.2.2:
+  version "3.2.2"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/mathjax/-/mathjax-3.2.2.tgz"
+  integrity sha512-Bt+SSVU8eBG27zChVewOicYs7Xsdt40qm4+UpHyX7k0/O9NliPc+x77k1/FEsPsjKPZGJvtRZM1vO+geW0OhGw==
 
 mavon-editor@^3.0.0-beta:
   version "3.0.1"
@@ -2465,6 +2595,11 @@ mlly@^1.7.1, mlly@^1.7.2, mlly@^1.7.3:
     pkg-types "^1.2.1"
     ufo "^1.5.4"
 
+mr-parser@^0.2.1:
+  version "0.2.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/mr-parser/-/mr-parser-0.2.1.tgz"
+  integrity sha512-hug+mpbSSKnH13rFqy3zm+XiG+QTStiDAgMTHK355TIstQE0qBkBtSJsa5YHP94AuarVX9b/4dcebdTRZ9YiEw==
+
 mri@^1.1.0:
   version "1.2.0"
   resolved "https://mirrors.huaweicloud.com/repository/npm/mri/-/mri-1.2.0.tgz"
@@ -2479,6 +2614,13 @@ nanoid@^3.3.7:
   version "3.3.7"
   resolved "https://mirrors.huaweicloud.com/repository/npm/nanoid/-/nanoid-3.3.7.tgz"
   integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
+
+nextafter@^1.0.0:
+  version "1.0.0"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/nextafter/-/nextafter-1.0.0.tgz"
+  integrity sha512-7PO+A89Tll2rSEfyrjtqO0MaI37+nnxBdnQcPypfbEYYuGaJxWGCqaOwQX4a3GHNTS08l1kazuiLEWZniZjMUQ==
+  dependencies:
+    double-bits "^1.1.0"
 
 node-fetch@^2.6.0:
   version "2.7.0"
@@ -2623,6 +2765,15 @@ proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://mirrors.huaweicloud.com/repository/npm/proto-list/-/proto-list-1.2.4.tgz"
   integrity sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==
+
+pseudocode@^2.4.1:
+  version "2.4.1"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/pseudocode/-/pseudocode-2.4.1.tgz"
+  integrity sha512-PUslrULyVbqk72+L4D4dvDwD8KPOGazSM9oQhB9a05ab+BPsvwFy6rm/pX6vSFp0IiCa1Isi/lmNE2oHqmr+rw==
+  dependencies:
+    katex "^0.16.7"
+  optionalDependencies:
+    mathjax "^3.2.2"
 
 regex@^4.3.2:
   version "4.3.2"
@@ -3072,6 +3223,11 @@ vitepress-theme-open17@1.3.0-beta.8:
     shiki "^1.13.0"
     vite "^5.4.1"
     vue "^3.4.38"
+
+vkey@~0.0.3, vkey@0.0.3:
+  version "0.0.3"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/vkey/-/vkey-0.0.3.tgz"
+  integrity sha512-9NxHjypgeJCDuDZOiUzfV1EDPbBVFvrgeTQN28jtw0cHYbnoIYIC6OZlwk3MlXP/tvTR++4QkavXS3PwFHP8gA==
 
 vscode-jsonrpc@8.2.0:
   version "8.2.0"

@@ -1,3 +1,5 @@
+@import "./pseudocode.css";
+
 :root {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(120deg,
@@ -37,4 +39,26 @@ hr {
 
 .aplayer {
   color: rgb(60, 60, 67) !important;
+}
+
+.vp-functionplot {
+  margin: 1.25rem 0;
+}
+
+.vp-functionplot__canvas {
+  width: 100%;
+  min-height: 320px;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.vp-functionplot__error {
+  color: var(--vp-c-danger-1);
+  background: var(--vp-c-danger-soft);
+  border: 1px solid var(--vp-c-danger-2);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.95rem;
 }

@@ -62,8 +62,7 @@ jobs:
           echo "Installing dependencies"
           npm install
 
-      # --- NEW STEP: Create Swap Space ---
-      # adds 4GB of swap memory to prevent OOM errors
+      # --- 关键步骤: 设置 Swap 虚拟内存 (系统层保护) ---
       - name: Set up Swap Space
         run: |
           sudo fallocate -l 4G /swapfile
@@ -72,14 +71,15 @@ jobs:
           sudo swapon /swapfile
           sudo swapon --show
 
-      # Step 7: 构建 vitepress-blog
+      # --- 核心修复: 强制构建 (Node层保护) ---
+      # 之前的错误是因为 npm 忽略了内存设置。
+      # 这里直接调用 node 并指定 6GB 内存 (6144MB)
       - name: Build vitepress-blog
-        env: 
-          # Increased from 4096 to 6144 (6GB)
-          NODE_OPTIONS: "--max-old-space-size=6144"
         run: |
-          echo "Building vitepress-blog"
-          npm run build
+          echo "Directly invoking vitepress with memory flag..."
+          # 这里的 'docs' 是通常的文档根目录，如果你的构建命令不需要参数，请删除它
+          # 如果你的 package.json 里的 build 命令是 "vitepress build"，那么下面这样写是对的：
+          node --max-old-space-size=6144 ./node_modules/vitepress/bin/vitepress.js build
 
       # Step 7.5: 确保 CNAME 文件存在于 public 目录
       - name: Ensure CNAME in public

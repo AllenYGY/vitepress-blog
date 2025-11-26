@@ -3,6 +3,7 @@ import { genFeed } from "vitepress-theme-open17/genFeed";
 import { defineConfigWithTheme } from "vitepress";
 import { generateSidebar } from "vitepress-sidebar";
 import { withMermaid } from "vitepress-plugin-mermaid";
+import pseudocode from "pseudocode";
 
 
 const vitepressSidebarOptions = [
@@ -38,6 +39,43 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     // config: MermaidMarkdown,
     // config:(md)=>{ md.use(mermaidItMarkdown) },
     math: true,
+    config: (md) => {
+      const defaultFence =
+        md.renderer.rules.fence?.bind(md.renderer.rules) ??
+        ((tokens, idx, options, env, slf) =>
+          slf.renderToken(tokens, idx, options));
+
+      md.renderer.rules.fence = (tokens, idx, options, env, slf) => {
+        const token = tokens[idx];
+        const info = token.info ? token.info.trim().toLowerCase() : "";
+        const isPseudo =
+          info === "pseudo" ||
+          info === "pseudocode" ||
+          info.startsWith("pseudo ");
+        const isFunctionPlot =
+          info === "functionplot" ||
+          info === "function-plot" ||
+          info.startsWith("functionplot ");
+
+        if (!isPseudo) {
+          if (isFunctionPlot) {
+            const content = md.utils.escapeHtml(token.content);
+            return `<FunctionPlot code="${content}" />`;
+          }
+          return defaultFence(tokens, idx, options, env, slf);
+        }
+
+        try {
+          const html = pseudocode.renderToString(token.content, {
+            lineNumber: true,
+            captionCount: true,
+          });
+          return `<div class="vp-pseudocode">${html}</div>`;
+        } catch (_error) {
+          return defaultFence(tokens, idx, options, env, slf);
+        }
+      };
+    },
   },
   sitemap: {
     hostname: "https://vitepress.open17.vip",
