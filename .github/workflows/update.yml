@@ -74,12 +74,39 @@ jobs:
       # --- 核心修复: 强制构建 (Node层保护) ---
       # 之前的错误是因为 npm 忽略了内存设置。
       # 这里直接调用 node 并指定 6GB 内存 (6144MB)
-      - name: Build vitepress-blog
+      - name: Build vitepress-blog (guide subset)
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
         run: |
-          echo "Directly invoking vitepress with memory flag..."
-          # 这里的 'docs' 是通常的文档根目录，如果你的构建命令不需要参数，请删除它
-          # 如果你的 package.json 里的 build 命令是 "vitepress build"，那么下面这样写是对的：
-          node --max-old-space-size=6144 ./node_modules/vitepress/bin/vitepress.js build
+          echo "Building guide subset with reduced memory pressure..."
+          rm -rf docs/.vitepress/cache public-guide
+          npx vitepress build docs public-guide --sourcemap=false --minify=false --include "guide/**"
+
+      - name: Build vitepress-blog (posts subset)
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
+        run: |
+          echo "Building posts subset with reduced memory pressure..."
+          rm -rf docs/.vitepress/cache public-posts
+          npx vitepress build docs public-posts --sourcemap=false --minify=false --include "posts/**"
+
+      - name: Build vitepress-blog (root/page subset)
+        env:
+          NODE_OPTIONS: --max-old-space-size=12288
+        run: |
+          echo "Building root/page subset with reduced memory pressure..."
+          rm -rf docs/.vitepress/cache public-root
+          npx vitepress build docs public-root --sourcemap=false --minify=false --include "index.md" "page/**"
+
+      - name: Merge build outputs
+        run: |
+          echo "Merging subset builds..."
+          rm -rf public
+          mkdir -p public
+          rsync -a public-guide/ public/ || true
+          rsync -a public-root/ public/ || true
+          rsync -a public-posts/ public/ || true
+          rm -rf public-guide public-root public-posts
 
       # Step 7.5: 确保 CNAME 文件存在于 public 目录
       - name: Ensure CNAME in public

@@ -1,10 +1,9 @@
 import os
 import shutil
 
-# 声明需要保留的文件夹列表
 ONLY_FOLDERS = {
     "Algorithm",
-    "Bioinfo",
+    "Bioinformatics",
     "Data Analysis",
     "Web",
     "Database Management System",
@@ -24,7 +23,6 @@ ONLY_FOLDERS = {
     "Software Engineering",
     "Functional Programming",
     "Bayesian Network",
-    "Math/Calculus",
 }
 
 # 源目录和目标目录
