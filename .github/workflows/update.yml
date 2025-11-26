@@ -1,5 +1,4 @@
-name: 更新代码
-
+name: Update VitePress Blog
 on:
   push:
     branches: master
@@ -79,24 +78,27 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building guide subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public-guide
-          npx vitepress build docs public-guide --sourcemap=false --minify=false --include "guide/**"
+          rm -rf docs/.vitepress/cache public public-guide
+          npx vitepress build docs --sourcemap=false --minify=false --include "guide/**"
+          if [ -d public ]; then mv public public-guide; else mkdir -p public-guide; fi
 
       - name: Build vitepress-blog (posts subset)
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building posts subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public-posts
-          npx vitepress build docs public-posts --sourcemap=false --minify=false --include "posts/**"
+          rm -rf docs/.vitepress/cache public public-posts
+          npx vitepress build docs --sourcemap=false --minify=false --include "posts/**"
+          if [ -d public ]; then mv public public-posts; else mkdir -p public-posts; fi
 
       - name: Build vitepress-blog (root/page subset)
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building root/page subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public-root
-          npx vitepress build docs public-root --sourcemap=false --minify=false --include "index.md" "page/**"
+          rm -rf docs/.vitepress/cache public public-root
+          npx vitepress build docs --sourcemap=false --minify=false --include "index.md" "page/**"
+          if [ -d public ]; then mv public public-root; else mkdir -p public-root; fi
 
       - name: Merge build outputs
         run: |
