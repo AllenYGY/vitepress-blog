@@ -29,9 +29,8 @@ ONLY_FOLDERS = {
 NOTE_DIR = os.path.abspath("./docs/NOTE")  # NOTE 文件夹
 POSTS_DIR = os.path.abspath("./docs/posts")  # posts 文件夹
 
+
 # --- 辅助函数 (无需修改) ---
-
-
 def is_markdown_file(file_path):
     """判断是否是 Markdown 文件"""
     return file_path.lower().endswith(".md")

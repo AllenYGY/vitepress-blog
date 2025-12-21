@@ -15,6 +15,7 @@ const vitepressSidebarOptions = [
     useTitleFromFileHeading: true,
     useFolderTitleFromIndexFile: true,
     useFolderLinkFromIndexFile: true,
+    excludeFilesByFrontmatter: true,
     rootGroupCollapsed: true,
   },
   {
@@ -25,6 +26,7 @@ const vitepressSidebarOptions = [
     useTitleFromFileHeading: true,
     useFolderTitleFromIndexFile: true,
     useFolderLinkFromIndexFile: true,
+    excludeFilesByFrontmatter: true,
     rootGroupCollapsed: true,
   },
 
@@ -35,6 +37,23 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
   title: "AllenYGY's Blog",
   lang: "zh-CN",
   description: "Record AllenYGY's daily studies",
+  transformPageData(pageData) {
+    const frontmatter = pageData.frontmatter || {};
+    const slidevEnabled =
+      frontmatter.slidev === true ||
+      String(frontmatter.slidev).toLowerCase() === "true";
+
+    if (!slidevEnabled) {
+      return;
+    }
+
+    return {
+      frontmatter: {
+        ...frontmatter,
+        layout: "SlidevLayout",
+      },
+    };
+  },
   markdown: {
     // config: MermaidMarkdown,
     // config:(md)=>{ md.use(mermaidItMarkdown) },
