@@ -21,7 +21,7 @@ ONLY_FOLDERS = {
     "Tools",
     "Computer Graphics",
     "Software Engineering",
-    # "Functional Programming",
+    "Functional Programming",
     "Bayesian Network",
 }
 

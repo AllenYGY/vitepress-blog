@@ -13,6 +13,7 @@
     "dev": "vitepress dev docs --port 8090",
     "build:slides": "node scripts/build-slidev.mjs",
     "build": "npm run build:slides && NODE_OPTIONS=--max-old-space-size=8192 vitepress build docs",
+    "remove:created-updated": "python3 scripts/remove_created_updated.py",
     "preview": "vitepress preview docs"
   },
   "dependencies": {
