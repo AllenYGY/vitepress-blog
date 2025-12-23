@@ -67,6 +67,27 @@ hr {
   width: 100%;
 }
 
+.slidev-layout__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.slidev-layout__toggle {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.slidev-layout__toggle:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
 .slidev-layout__frame {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -83,6 +104,18 @@ hr {
   border: 0;
   display: block;
   background: #fff;
+}
+
+.slidev-layout__doc {
+  max-width: 688px;
+  margin: 0 auto;
+  padding: 16px 0 32px;
+}
+
+@media (min-width: 960px) {
+  .slidev-layout__doc {
+    max-width: 752px;
+  }
 }
 
 body.slidev-fullscreen {

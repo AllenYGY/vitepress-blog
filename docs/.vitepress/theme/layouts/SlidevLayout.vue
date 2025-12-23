@@ -1,6 +1,15 @@
 <template>
   <div class="slidev-layout">
-    <div v-if="slidevSrc" class="slidev-layout__frame">
+    <div v-if="showToggle" class="slidev-layout__toolbar">
+      <button
+        class="slidev-layout__toggle"
+        type="button"
+        @click="toggleView"
+      >
+        {{ isSlidesView ? 'Show Markdown' : 'Show Slides' }}
+      </button>
+    </div>
+    <div v-if="slidevSrc && isSlidesView" class="slidev-layout__frame">
       <iframe
         class="slidev-layout__iframe"
         :src="slidevSrc"
@@ -9,6 +18,9 @@
         allow="fullscreen"
         allowfullscreen
       />
+    </div>
+    <div v-else-if="!isSlidesView" class="slidev-layout__doc">
+      <Content class="vp-doc" />
     </div>
     <div v-else class="slidev-layout__missing">
       <p>Slidev deck not configured.</p>
@@ -45,7 +57,23 @@ const fullscreenHotkey = computed(() => {
   return String(raw || '').trim()
 })
 
+const defaultView = computed(() => {
+  const raw = frontmatter.value.slidevView
+  if (!raw) return 'slides'
+  const normalized = String(raw).trim().toLowerCase()
+  return normalized === 'doc' || normalized === 'markdown' ? 'doc' : 'slides'
+})
+
+const showToggle = computed(() => {
+  const raw = frontmatter.value.slidevToggle
+  if (raw === false) return false
+  if (typeof raw === 'string' && raw.toLowerCase() === 'false') return false
+  return true
+})
+
 const isFullscreen = ref(false)
+const currentView = ref('slides')
+const isSlidesView = computed(() => currentView.value === 'slides')
 
 const slidevSrc = computed(() => {
   const raw =
@@ -88,12 +116,28 @@ watchEffect(() => {
 })
 
 watch(
+  [defaultView, slidevSrc],
+  ([view, src]) => {
+    if (!src) {
+      currentView.value = 'doc'
+      return
+    }
+    currentView.value = view
+  },
+  { immediate: true }
+)
+
+watch(
   defaultFullscreen,
   (value) => {
     isFullscreen.value = value
   },
   { immediate: true }
 )
+
+const toggleView = () => {
+  currentView.value = isSlidesView.value ? 'doc' : 'slides'
+}
 
 const onKeydown = (event) => {
   const hotkey = fullscreenHotkey.value
