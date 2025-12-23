@@ -4,7 +4,6 @@
 
 当前该模式仍处于测试阶段,可能存在部分显示bug
 
-
 ## 基本配置
 ```js
 themeConfig:{
@@ -37,5 +36,3 @@ bgImg:"xxxx"
 bgImgDark:"xxxx"
 ---
 ```
-
-

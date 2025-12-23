@@ -191,7 +191,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       { text: "Home", link: "/" },
       { text: "Blog", link: "/page/blog" },
       { text: "Tags", link: "/page/tags" },
-      { text: "Archive", link: " /page/archive" },
+      { text: "Archive", link: "/page/archive" },
+      { text: "Friends", link: "/page/friend" },
       // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
