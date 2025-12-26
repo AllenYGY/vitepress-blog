@@ -9,6 +9,9 @@
         {{ isSlidesView ? 'Show Markdown' : 'Show Slides' }}
       </button>
     </div>
+    <div class="slidev-layout__tags">
+      <DocTags />
+    </div>
     <div v-if="slidevSrc && isSlidesView" class="slidev-layout__frame">
       <iframe
         class="slidev-layout__iframe"
@@ -26,12 +29,17 @@
       <p>Slidev deck not configured.</p>
       <p>Add <code>slidev: true</code> or a deck path to the page frontmatter.</p>
     </div>
+    <div class="slidev-layout__comment">
+      <Comment />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { useData, withBase } from 'vitepress'
+import DocTags from '../../../components/DocTags.vue'
+import Comment from '../components/Comment.vue'
 
 const { frontmatter, page } = useData()
 
