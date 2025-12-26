@@ -8,7 +8,7 @@ on:
 permissions: write-all
 
 jobs:
-  update-code:
+  Update-Blog:
     runs-on: ubuntu-latest
 
     steps:
@@ -77,9 +77,6 @@ jobs:
           echo "Building Slidev decks..."
           npm run build:slides
 
-      # --- 核心修复: 强制构建 (Node层保护) ---
-      # 之前的错误是因为 npm 忽略了内存设置。
-      # 这里直接调用 node 并指定 6GB 内存 (6144MB)
       - name: Build vitepress-blog (guide subset)
         env:
           NODE_OPTIONS: --max-old-space-size=12288
