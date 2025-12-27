@@ -1,0 +1,3 @@
+import{_ as e,l as o,I as i,k as n,K as p}from"../app.8lJVEi7m.js";import{p as g}from"./gitGraph-YCYPL57B.DIsGZU47.js";import"./framework.Bfq_PhNx.js";import"./theme.xLUMo4U1.js";import"./baseUniq.BRaHFZM0.js";import"./basePickBy.BCayGjnn.js";import"./clone.Dm79SFJB.js";var m={parse:e(async r=>{const a=await g("info",r);o.debug(a)},"parse")},v={version:p},d=e(()=>v.version,"getVersion"),c={getVersion:d},l=e((r,a,s)=>{o.debug(`rendering info diagram
+`+r);const t=i(a);n(t,100,400,!0),t.append("g").append("text").attr("x",100).attr("y",40).attr("class","version").attr("font-size",32).style("text-anchor","middle").text(`v${s}`)},"draw"),f={draw:l},D={parser:m,db:c,renderer:f};export{D as diagram};
+//# sourceMappingURL=infoDiagram-P5D6MX3V.CODJ7H4_.js.map

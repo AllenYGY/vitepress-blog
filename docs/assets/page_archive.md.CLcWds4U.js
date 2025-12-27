@@ -1,0 +1,2 @@
+import{_ as e,c as a,o as t}from"./chunks/framework.Bfq_PhNx.js";const g=JSON.parse('{"title":"","description":"","frontmatter":{"layout":"archive","lastUpdated":false,"bgImage":{"light":"/bg.jpg","dark":"/bg2_dark.jpg"}},"headers":[],"relativePath":"page/archive.md","filePath":"page/archive.md"}'),r={name:"page/archive.md"};function c(o,s,p,i,n,d){return t(),a("div")}const l=e(r,[["render",c]]);export{g as __pageData,l as default};
+//# sourceMappingURL=page_archive.md.CLcWds4U.js.map
