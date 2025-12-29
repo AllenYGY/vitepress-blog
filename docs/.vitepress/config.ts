@@ -140,10 +140,10 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     editLink: {
       pattern:
         "https://github.com/open17/vitepress-theme-open17/edit/master/docs/:path",
-      text: "帮我优化文章~"
+      text: "Help me polish the article"
     },
     feed: {
-      baseUrl: "https://vitepress.open17.vip",
+      baseUrl: "https://blog.allenygy.vip",
       copyright: "Copyright © 2023-present open17",
       image: "https://cdn.jsdelivr.net/gh/open17/Pic/img/202405071726176.png",
     },
@@ -196,16 +196,16 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
-          { text: "Functional Programming", link: "/posts/Functional Programming/Lecture/01-FP-Basics/" },
-          { text: "Theory Of Computation", link: "/posts/Theory Of Computation/Lecture/01-TOC-Intro/" },
+          { text: "Database Management System", link: "/posts/Database Management System/RDBMS/01-Entity-Relationship-Model-Modeling/" },
           { text: "Compiler Construction", link: "/posts/Compiler Construction/Lecture/01-Compiler Introduction/" },
           { text: "Computer Graphics", link: "/posts/Computer Graphics/Lecture/02-CG-Transformation/" },
-          { text: "Computer Network", link: "/posts/Computer Network/Lecture/01-Basic Concepts/" },
-          { text: "Database Management System", link: "/posts/Database Management System/RDBMS/01-Entity-Relationship-Model-Modeling/" },
           { text: "Computer Organization", link: "/posts/Computer Organization/Lecture/01-What is a Computer/" },
+          { text: "Computer Network", link: "/posts/Computer Network/Lecture/01-Basic Concepts/" },
+          { text: "Functional Programming", link: "/posts/Functional Programming/Lecture/01-FP-Basics/" },
           { text: "Operating System", link: "/posts/Operating System/Lecture/01-Operating System Introduction/" },
+          { text: "Theory Of Computation", link: "/posts/Theory Of Computation/Lecture/01-TOC-Intro/" },
         ],
-       },
+      },
 
     ],
     socialLinks: [
