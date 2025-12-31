@@ -4,6 +4,7 @@ import { defineConfigWithTheme } from "vitepress";
 import { generateSidebar } from "vitepress-sidebar";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import pseudocode from "pseudocode";
+import wikiLinkPlugin from "./markdown/wikiLink";
 
 
 const vitepressSidebarOptions = [
@@ -102,6 +103,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
           return defaultFence(tokens, idx, options, env, slf);
         }
       };
+
+      md.use(wikiLinkPlugin);
     },
   },
   sitemap: {

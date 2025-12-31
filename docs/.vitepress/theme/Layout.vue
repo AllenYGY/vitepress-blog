@@ -16,6 +16,7 @@
       </template>
     </template>
     <template #doc-after>
+      <Backlinks v-if="showBacklinks" />
       <Comment />
     </template>
   </Layout>
@@ -31,6 +32,7 @@ import Comment from './components/Comment.vue';
 import DocTags from '../../components/DocTags.vue';
 import PostHero from '../../components/PostHero.vue';
 import TagsOverlay from '../../components/TagsOverlay.vue';
+import Backlinks from '../../components/Backlinks.vue';
 
 const { Layout } = DefaultTheme;
 
@@ -64,6 +66,13 @@ const isPostPage = computed(() => {
   );
   if (layout && layout !== 'doc') return false;
   return path.includes('/posts/') && !isSlide;
+});
+
+const showBacklinks = computed(() => {
+  if (frontmatter.value.backlinks === false) return false;
+  const layout = String(mergedFrontmatter.value.layout || '').toLowerCase();
+  if (layout && layout !== 'doc') return false;
+  return true;
 });
 
 onMounted(() => {
