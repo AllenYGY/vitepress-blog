@@ -1,14 +1,12 @@
 import { createContentLoader } from 'vitepress';
-
-const normalizeKey = (value) => {
-  if (!value) return '';
-  return String(value)
-    .trim()
-    .replace(/^\/+/, '')
-    .replace(/\.md$/i, '')
-    .replace(/#.*$/, '')
-    .toLowerCase();
-};
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { unified } from 'unified-legacy';
+import remarkParse from 'remark-parse-legacy';
+import remarkWikiLink, { getPermalinks } from '@portaljs/remark-wiki-link';
+import { visit } from 'unist-util-visit';
+import wikiLinkOptions, { pathToPermalink } from '../.vitepress/wiki-link.config.js';
 
 const normalizeUrl = (value) => {
   if (!value) return '';
@@ -32,48 +30,6 @@ const getTitle = (page) => {
   return page.url;
 };
 
-const getAliases = (page) => {
-  const frontmatter = page.frontmatter || {};
-  const aliases = frontmatter.aliases ?? frontmatter.alias ?? [];
-  if (Array.isArray(aliases)) return aliases.filter(Boolean).map(String);
-  if (typeof aliases === 'string') return [aliases];
-  return [];
-};
-
-const getPathKeys = (relativePath) => {
-  if (!relativePath) return [];
-  const cleanPath = relativePath.replace(/\.md$/, '');
-  const parts = cleanPath.split('/');
-  const fileStem = parts[parts.length - 1];
-  const keys = [cleanPath, fileStem];
-  if (fileStem.toLowerCase() === 'index' && parts.length > 1) {
-    const folderKey = parts[parts.length - 2];
-    const folderPath = parts.slice(0, -1).join('/');
-    keys.push(folderKey, folderPath);
-  }
-  return keys;
-};
-
-const parseWikiTarget = (raw) => {
-  const pipeIndex = raw.indexOf('|');
-  const targetPart = pipeIndex === -1 ? raw : raw.slice(0, pipeIndex);
-  const hashIndex = targetPart.indexOf('#');
-  const base = (hashIndex === -1 ? targetPart : targetPart.slice(0, hashIndex)).trim();
-  return base;
-};
-
-const extractWikiTargets = (src) => {
-  if (!src) return [];
-  const matches = [];
-  const regex = /\[\[([^\]]+)\]\]/g;
-  let match = null;
-  while ((match = regex.exec(src)) !== null) {
-    const target = parseWikiTarget(match[1]);
-    if (target) matches.push(target);
-  }
-  return matches;
-};
-
 const isPublished = (frontmatter) => {
   if (!frontmatter) return true;
   const value = frontmatter.publish;
@@ -82,39 +38,97 @@ const isPublished = (frontmatter) => {
   return String(value).toLowerCase() !== 'false';
 };
 
+const contentRoot = path.resolve(process.cwd(), 'docs');
+const basePermalinks = getPermalinks(contentRoot, [], pathToPermalink).filter(Boolean);
+const permalinkSignature = hashText(basePermalinks.join('|'));
+const cacheVersion = 1;
+const cacheDir = path.join(contentRoot, '.vitepress', 'cache');
+const cacheFile = path.join(cacheDir, 'wiki-links.json');
+const wikiCache = loadCache();
+const processorCache = new Map();
+const permalinksCache = new Map();
+
+const getDirPrefix = (relativePath) => {
+  if (!relativePath) return '';
+  const parts = String(relativePath).replace(/\\/g, '/').split('/');
+  parts.pop();
+  return `/${parts.join('/')}`.replace(/\/+$/, '');
+};
+
+const orderPermalinks = (relativePath) => {
+  const cacheKey = relativePath || '';
+  const cached = permalinksCache.get(cacheKey);
+  if (cached) return cached;
+  const dirPrefix = getDirPrefix(relativePath);
+  if (!dirPrefix) {
+    permalinksCache.set(cacheKey, basePermalinks);
+    return basePermalinks;
+  }
+  const local = [];
+  const rest = [];
+  basePermalinks.forEach((permalink) => {
+    const isSameDir =
+      permalink === dirPrefix || path.posix.dirname(permalink) === dirPrefix;
+    if (isSameDir) {
+      local.push(permalink);
+    } else {
+      rest.push(permalink);
+    }
+  });
+  const ordered = [...local, ...rest];
+  permalinksCache.set(cacheKey, ordered);
+  return ordered;
+};
+
+const getProcessor = (relativePath) => {
+  const key = relativePath || '';
+  const cached = processorCache.get(key);
+  if (cached) return cached;
+  const processor = unified()
+    .use(remarkParse)
+    .use(remarkWikiLink, {
+      ...wikiLinkOptions,
+      permalinks: orderPermalinks(relativePath),
+    });
+  processorCache.set(key, processor);
+  return processor;
+};
+
+const extractWikiPermalinks = (src, relativePath) => {
+  if (!src || !src.includes('[[')) return [];
+  const processor = getProcessor(relativePath);
+  const tree = processor.parse(src);
+  const mdast = processor.runSync(tree);
+  const links = [];
+  visit(mdast, 'wikiLink', (node) => {
+    const permalink = node?.data?.permalink;
+    const exists = node?.data?.exists;
+    if (exists === false) return;
+    if (typeof permalink === 'string' && permalink.trim()) {
+      links.push(permalink.trim());
+    }
+  });
+  return links;
+};
+
 export default createContentLoader('**/*.md', {
   includeSrc: true,
   render: false,
   excerpt: false,
   transform(rawData) {
+    const cachedFiles = wikiCache.files || {};
+    const nextCache = {
+      version: cacheVersion,
+      permalinkSignature,
+      files: {},
+    };
     const pages = rawData
       .filter((page) => isPublished(page.frontmatter || {}))
       .map((page) => ({
         url: page.url,
         title: getTitle(page),
         relativePath: page.relativePath || '',
-        aliases: getAliases(page),
       }));
-
-    const linkIndex = {};
-    const urlIndex = {};
-
-    pages.forEach((page) => {
-      const pageUrlKey = normalizeUrl(page.url);
-      if (pageUrlKey) urlIndex[pageUrlKey] = page.url;
-
-      const keys = new Set([
-        page.title,
-        page.url,
-        ...page.aliases,
-        ...getPathKeys(page.relativePath),
-      ]);
-      keys.forEach((key) => {
-        const normalized = normalizeKey(key);
-        if (!normalized || linkIndex[normalized]) return;
-        linkIndex[normalized] = page.url;
-      });
-    });
 
     const backlinks = {};
 
@@ -122,14 +136,22 @@ export default createContentLoader('**/*.md', {
       if (!isPublished(page.frontmatter || {})) return;
       const pageUrlKey = normalizeUrl(page.url);
       const pageTitle = getTitle(page);
-      const targets = extractWikiTargets(page.src || '');
+      const src = page.src || '';
+      const relativePath = page.relativePath || '';
+      const cacheKey = relativePath || page.url || '';
+      const srcHash = hashText(src);
+      const cachedEntry = cachedFiles[cacheKey];
+      const targets =
+        cachedEntry && cachedEntry.hash === srcHash
+          ? cachedEntry.targets || []
+          : extractWikiPermalinks(src, relativePath);
+      if (cacheKey) {
+        nextCache.files[cacheKey] = { hash: srcHash, targets };
+      }
       const seen = new Set();
       targets.forEach((target) => {
         if (/^https?:\/\//i.test(target)) return;
-        const normalized = normalizeKey(target);
-        const resolvedUrl = linkIndex[normalized] || null;
-        if (!resolvedUrl) return;
-        const resolvedKey = normalizeUrl(resolvedUrl);
+        const resolvedKey = normalizeUrl(target);
         if (!resolvedKey || resolvedKey === pageUrlKey) return;
         if (seen.has(resolvedKey)) return;
         seen.add(resolvedKey);
@@ -141,6 +163,39 @@ export default createContentLoader('**/*.md', {
       });
     });
 
+    writeCache(nextCache);
     return { pages, backlinks };
   },
 });
+
+function hashText(value) {
+  return crypto.createHash('sha1').update(value).digest('hex');
+}
+
+function loadCache() {
+  if (!existsSync(cacheFile)) return { files: {} };
+  try {
+    const raw = readFileSync(cacheFile, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (
+      !parsed ||
+      parsed.version !== cacheVersion ||
+      parsed.permalinkSignature !== permalinkSignature ||
+      !parsed.files
+    ) {
+      return { files: {} };
+    }
+    return parsed;
+  } catch (_error) {
+    return { files: {} };
+  }
+}
+
+function writeCache(payload) {
+  try {
+    mkdirSync(cacheDir, { recursive: true });
+    writeFileSync(cacheFile, JSON.stringify(payload, null, 2), 'utf8');
+  } catch (_error) {
+    return;
+  }
+}

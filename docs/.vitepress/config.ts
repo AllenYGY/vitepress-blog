@@ -1,3 +1,4 @@
+/// <reference path="./shims.d.ts" />
 import type { ThemeConfig } from "vitepress-theme-open17/config";
 import { genFeed } from "vitepress-theme-open17/genFeed";
 import { defineConfigWithTheme } from "vitepress";
@@ -59,13 +60,10 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     // config: MermaidMarkdown,
     // config:(md)=>{ md.use(mermaidItMarkdown) },
     math: true,
-    shikiConfig: {
-      langAlias: {
-        pseudo: "txt",
-        pseudocode: "txt",
-        "function-plot": "json",
-        functionplot: "json",
-      },
+    defaultHighlightLang: "txt",
+    languageAlias: {
+      "function-plot": "json",
+      functionplot: "json",
     },
     config: (md) => {
       const defaultFence =
@@ -199,11 +197,11 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
-          { text: "Database Management System", link: "/posts/Database Management System/RDBMS/01-Entity-Relationship-Model-Modeling/" },
           { text: "Compiler Construction", link: "/posts/Compiler Construction/Lecture/01-Compiler Introduction/" },
-          { text: "Computer Graphics", link: "/posts/Computer Graphics/Lecture/02-CG-Transformation/" },
+          { text: "Computer Graphics", link: "/posts/Computer Graphics/Lecture/01-CG-Shading/" },
           { text: "Computer Organization", link: "/posts/Computer Organization/Lecture/01-What is a Computer/" },
           { text: "Computer Network", link: "/posts/Computer Network/Lecture/01-Basic Concepts/" },
+          { text: "Database Management System", link: "/posts/Database Management System/RDBMS/01-Entity-Relationship-Model-Modeling/" },
           { text: "Functional Programming", link: "/posts/Functional Programming/Lecture/01-FP-Basics/" },
           { text: "Operating System", link: "/posts/Operating System/Lecture/01-Operating System Introduction/" },
           { text: "Theory Of Computation", link: "/posts/Theory Of Computation/Lecture/01-TOC-Intro/" },

@@ -1501,30 +1501,38 @@ hr {
   }
 }
 
-.wiki-link {
+a.internal {
   color: var(--vp-c-brand-1);
   text-decoration: none;
   border-bottom: 1px dashed rgba(59, 130, 246, 0.45);
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.dark .wiki-link {
+.dark a.internal {
   border-color: rgba(56, 189, 248, 0.55);
 }
 
-.wiki-link:hover {
+a.internal:hover {
   color: var(--vp-c-brand-1);
   border-color: var(--vp-c-brand-1);
 }
 
-.wiki-link--external {
-  border-bottom-style: solid;
+a.internal {
+  font-weight: 600;
 }
 
-.wiki-link--missing {
+a.internal.new {
   color: var(--vp-c-text-2);
-  border-bottom-color: rgba(148, 163, 184, 0.6);
-  cursor: help;
+  border-bottom-style: dotted;
+}
+
+img.internal,
+iframe.internal {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
 }
 
 .backlinks {

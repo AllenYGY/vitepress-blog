@@ -14,7 +14,7 @@ jobs:
     steps:
       # Step 1: 检出 vitepress-blog 仓库
       - name: Checkout vitepress-blog
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: AllenYGY/vitepress-blog
           ref: master
@@ -27,42 +27,96 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      # Step 3: 克隆 NOTE 仓库
+      # Step 3: 检查 NOTE 仓库是否有新提交
+      - name: Get NOTE commit hash
+        id: note_hash
+        run: |
+          NOTE_HASH=$(git ls-remote git@github.com:AllenYGY/NOTE.git HEAD | awk '{print $1}')
+          if [ -z "$NOTE_HASH" ]; then
+            echo "Failed to resolve NOTE commit hash"
+            exit 1
+          fi
+          echo "hash=$NOTE_HASH" >> $GITHUB_OUTPUT
+          mkdir -p .note-cache
+          echo "$NOTE_HASH" > .note-cache/note-commit.txt
+
+      - name: Cache NOTE commit hash
+        id: note_cache
+        uses: actions/cache@v4
+        with:
+          path: .note-cache
+          key: ${{ runner.os }}-note-${{ steps.note_hash.outputs.hash }}
+
+      - name: Check NOTE update
+        id: note_check
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          if [ "${{ steps.note_cache.outputs.cache-hit }}" = "true" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Clone NOTE repository
+        if: steps.note_check.outputs.changed == 'true'
         run: |
           echo "Cloning NOTE repository using SSH"
           cd docs
           git clone git@github.com:AllenYGY/NOTE.git 
-          cd NOTE
-          rm -r .git
-          cd ../..
+          cd ..
+
+      - name: Sync NOTE content
+        if: steps.note_check.outputs.changed == 'true'
+        run: |
           python movefolder.py
-          echo `date +"%Y-%m-%d %H:%M:%S"` > update.txt
+
+      - name: Detect content changes
+        id: changes
+        if: steps.note_check.outputs.changed == 'true'
+        run: |
+          if git status --porcelain | grep -q .; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update timestamp
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "$(date +"%Y-%m-%d %H:%M:%S")" > update.txt
 
       # Step 4: 设置 Node.js 环境
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
 
-      # Step 5: 缓存 Node.js 依赖
-      - name: Cache Node.js dependencies
-        uses: actions/cache@v3
+      - name: Cache VitePress + Slidev outputs
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            docs/.vitepress/cache
+            docs/public/slides
+          key: ${{ runner.os }}-vp-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-vp-
 
       # Step 6: 安装依赖
       - name: Install dependencies
+        if: steps.changes.outputs.changed == 'true'
         run: |
           echo "Installing dependencies"
-          npm install
+          npm ci
 
       # --- 关键步骤: 设置 Swap 虚拟内存 (系统层保护) ---
       - name: Set up Swap Space
+        if: steps.changes.outputs.changed == 'true'
         run: |
           sudo fallocate -l 4G /swapfile
           sudo chmod 600 /swapfile
@@ -71,40 +125,46 @@ jobs:
           sudo swapon --show
 
       - name: Build Slidev decks
+        if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=4096
+          SANITIZE_FRONTMATTER: 0
         run: |
           echo "Building Slidev decks..."
           npm run build:slides
 
       - name: Build vitepress-blog (guide subset)
+        if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building guide subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public public-guide
+          rm -rf public public-guide
           npx vitepress build docs --sourcemap=false --minify=false --include "guide/**"
           if [ -d public ]; then mv public public-guide; else mkdir -p public-guide; fi
 
       - name: Build vitepress-blog (posts subset)
+        if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building posts subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public public-posts
+          rm -rf public public-posts
           npx vitepress build docs --sourcemap=false --minify=false --include "posts/**"
           if [ -d public ]; then mv public public-posts; else mkdir -p public-posts; fi
 
       - name: Build vitepress-blog (root/page subset)
+        if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building root/page subset with reduced memory pressure..."
-          rm -rf docs/.vitepress/cache public public-root
+          rm -rf public public-root
           npx vitepress build docs --sourcemap=false --minify=false --include "index.md" "page/**"
           if [ -d public ]; then mv public public-root; else mkdir -p public-root; fi
 
       - name: Merge build outputs
+        if: steps.changes.outputs.changed == 'true'
         run: |
           echo "Merging subset builds..."
           rm -rf public
@@ -116,6 +176,7 @@ jobs:
 
       # Step 7.5: 确保 CNAME 文件存在于 public 目录
       - name: Ensure CNAME in public
+        if: steps.changes.outputs.changed == 'true'
         run: |
           if [ -f "CNAME" ]; then
             cp CNAME public/CNAME
@@ -124,6 +185,7 @@ jobs:
 
       # Step 8: 同步更新到 vitepress-blog 仓库
       - name: Sync with vitepress-blog repository
+        if: steps.changes.outputs.changed == 'true'
         run: |
           echo "Syncing files from NOTE to vitepress-blog"
           git config user.name "GitHub Action"

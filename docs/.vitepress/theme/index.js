@@ -9,7 +9,6 @@ import Blog from '../../components/Blog.vue'
 import Archive from '../../components/Archive.vue'
 import Tags from '../../components/Tags.vue'
 import DocTags from '../../components/DocTags.vue'
-import WikiLink from '../../components/WikiLink.vue'
 import HomeDashboard from '../../components/HomeDashboard.vue'
 import HomeHero from '../../components/HomeHero.vue'
 import SlidevLayout from './layouts/SlidevLayout.vue'
@@ -35,7 +34,6 @@ export default{
         app.component('FunctionPlot',FunctionPlot)
         app.component('ContributionGraph',ContributionGraph)
         app.component('DocTags',DocTags)
-        app.component('WikiLink',WikiLink)
         app.component('HomeDashboard',HomeDashboard)
         app.component('HomeHero',HomeHero)
         replaceComponent('blog',Blog)

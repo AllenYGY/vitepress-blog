@@ -1,14 +1,31 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises'
+import { readdir, readFile, writeFile, stat, mkdir } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import path from 'node:path'
 
 const rootDir = process.cwd()
 const docsDir = path.join(rootDir, 'docs')
+const cacheDir = path.join(docsDir, '.vitepress', 'cache')
+const cacheFile = path.join(cacheDir, 'frontmatter-cache.json')
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '.vitepress', 'public', 'dist'])
 
+const skipSanitize =
+  process.env.SANITIZE_FRONTMATTER === '0' ||
+  process.env.SANITIZE_FRONTMATTER === 'false'
+
+if (skipSanitize) {
+  console.log('Frontmatter sanitize skipped.')
+  process.exit(0)
+}
+
 let changedCount = 0
 
+const previousCache = await readCache()
+const nextCache = { files: {} }
+
 await walk(docsDir)
+
+await writeCache()
 
 if (changedCount > 0) {
   console.log(`Normalized frontmatter in ${changedCount} file(s).`)
@@ -35,6 +52,23 @@ async function walk(dir) {
 }
 
 async function sanitizeFile(filePath) {
+  const cacheKey = toCacheKey(filePath)
+  let fileStat
+  try {
+    fileStat = await stat(filePath)
+  } catch (_error) {
+    return
+  }
+  const previousEntry = previousCache.files[cacheKey]
+  if (
+    previousEntry &&
+    previousEntry.mtimeMs === fileStat.mtimeMs &&
+    previousEntry.size === fileStat.size
+  ) {
+    nextCache.files[cacheKey] = previousEntry
+    return
+  }
+
   let text = ''
   try {
     const buffer = await readFile(filePath)
@@ -48,6 +82,11 @@ async function sanitizeFile(filePath) {
     if (updated !== text) {
       await writeFile(filePath, updated, 'utf8')
       changedCount += 1
+      fileStat = await stat(filePath)
+    }
+    nextCache.files[cacheKey] = {
+      mtimeMs: fileStat.mtimeMs,
+      size: fileStat.size,
     }
     return
   }
@@ -65,6 +104,11 @@ async function sanitizeFile(filePath) {
     if (updated !== text) {
       await writeFile(filePath, updated, 'utf8')
       changedCount += 1
+      fileStat = await stat(filePath)
+    }
+    nextCache.files[cacheKey] = {
+      mtimeMs: fileStat.mtimeMs,
+      size: fileStat.size,
     }
     return
   }
@@ -83,5 +127,39 @@ async function sanitizeFile(filePath) {
   if (updated !== text) {
     await writeFile(filePath, updated, 'utf8')
     changedCount += 1
+    fileStat = await stat(filePath)
+  }
+  nextCache.files[cacheKey] = {
+    mtimeMs: fileStat.mtimeMs,
+    size: fileStat.size,
+  }
+}
+
+function toCacheKey(filePath) {
+  return path.relative(docsDir, filePath).split(path.sep).join('/')
+}
+
+async function readCache() {
+  if (!existsSync(cacheFile)) {
+    return { files: {} }
+  }
+  try {
+    const raw = await readFile(cacheFile, 'utf8')
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object' && parsed.files) {
+      return { files: parsed.files }
+    }
+  } catch (_error) {
+    return { files: {} }
+  }
+  return { files: {} }
+}
+
+async function writeCache() {
+  try {
+    await mkdir(cacheDir, { recursive: true })
+    await writeFile(cacheFile, JSON.stringify(nextCache, null, 2), 'utf8')
+  } catch (_error) {
+    return
   }
 }
