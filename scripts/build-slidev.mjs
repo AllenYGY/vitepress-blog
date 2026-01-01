@@ -89,9 +89,11 @@ async function collectFromDocs(dir) {
     if (!entry.name.endsWith('.md')) return
 
     const src = await readFile(entryPath, 'utf8')
-    const { data } = matter(src)
-    const slidevEnabled =
-      data && (data.slidev === true || String(data.slidev).toLowerCase() === 'true')
+    const frontmatterBlock = getFrontmatterBlock(src)
+    if (!frontmatterBlock || !hasFrontmatterKey(frontmatterBlock, 'slidev')) return
+
+    const data = parseFrontmatterData(src, entryPath, frontmatterBlock)
+    const slidevEnabled = isTruthy(data?.slidev)
     if (!slidevEnabled) return
 
     const relFromDocs = path.relative(docsDir, entryPath)
@@ -156,6 +158,47 @@ function shouldSkipDir(name) {
 
 function toPosix(value) {
   return value.split(path.sep).join('/')
+}
+
+function getFrontmatterBlock(source) {
+  if (!source.startsWith('---')) return null
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---/m)
+  return match ? match[1] : null
+}
+
+function hasFrontmatterKey(frontmatter, key) {
+  const pattern = new RegExp(`(^|\\n)\\s*${key}\\s*:`, 'i')
+  return pattern.test(frontmatter)
+}
+
+function parseFrontmatterData(source, filePath, frontmatterBlock) {
+  const cleaned = source.replace(/\u0000/g, '').replace(/\t/g, '  ')
+  try {
+    const { data } = matter(cleaned)
+    return data || {}
+  } catch (_error) {
+    const slidevValue = readFrontmatterValue(frontmatterBlock, 'slidev')
+    if (slidevValue === true) {
+      console.warn(`[slidev] Frontmatter parse failed for ${filePath}, using slidev flag only.`)
+      return { slidev: true }
+    }
+    console.warn(`[slidev] Frontmatter parse failed for ${filePath}, skipping.`)
+    return {}
+  }
+}
+
+function readFrontmatterValue(frontmatter, key) {
+  const pattern = new RegExp(`(^|\\n)\\s*${key}\\s*:\\s*([^\\n]+)`, 'i')
+  const match = frontmatter.match(pattern)
+  if (!match) return undefined
+  return isTruthy(match[2])
+}
+
+function isTruthy(value) {
+  if (value === true) return true
+  if (value === false || value == null) return false
+  const normalized = String(value).trim().toLowerCase()
+  return normalized === 'true' || normalized === 'yes' || normalized === '1'
 }
 
 async function pruneOutputs(decks) {
