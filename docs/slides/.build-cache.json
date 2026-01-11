@@ -1,0 +1,73 @@
+{
+  "globalSignature": "777f9e03b2b581565459a0588fefde1f6030cf27",
+  "decks": {
+    "posts/Algorithm/DSA/DSA-Algorithm Analysis": {
+      "hash": "1386f56b40493fe024919779b2777aca67db6e6b",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Algorithm/DSA/DSA-Algorithm Analysis.md"
+    },
+    "posts/Algorithm/DSA/DSA-BST": {
+      "hash": "7c81c73851a337926e5b35f5f600c8a2e29563bc",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Algorithm/DSA/DSA-BST.md"
+    },
+    "posts/Algorithm/DSA/DSA-Heap Sort": {
+      "hash": "f3a7c9694fdbdad2a4500b9aabf4b52b68822029",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Algorithm/DSA/DSA-Heap Sort.md"
+    },
+    "posts/Algorithm/DSA/DSA-Quick Sort": {
+      "hash": "36eff586f9d84742641138a4a7f92a04a6d8f7c9",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Algorithm/DSA/DSA-Quick Sort.md"
+    },
+    "posts/Algorithm/STRING/Manacher-Algorithm": {
+      "hash": "bdd7bbddd3a54ce411436ff8830fee627c37567c",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Algorithm/STRING/Manacher-Algorithm.md"
+    },
+    "posts/Bayesian Network/Lecture/Bayesian-04-Clique Tree": {
+      "hash": "81a0863951a9167ee81dc7e17b5b7a0192f7bc37",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Bayesian Network/Lecture/Bayesian-04-Clique Tree.md"
+    },
+    "posts/Bioinformatics/Bioinformatics-Overview": {
+      "hash": "dd2c9cb71e28d83bc5856316af9605a17b9485f8",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Bioinformatics/Bioinformatics-Overview.md"
+    },
+    "posts/Computer Graphics/CG-Overview": {
+      "hash": "076076c5b13b4939d9472de46e8698a52cadbffa",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Computer Graphics/CG-Overview.md"
+    },
+    "posts/Computer Graphics/CG-Review List": {
+      "hash": "5f4a374c38924b73155f3b2afac90d8200621948",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Computer Graphics/CG-Review List.md"
+    },
+    "posts/Data Analysis/Data Visualization/DV-06-Designe Principles": {
+      "hash": "c30abc8e919d2d393ef1035bc8a8738786b8d11b",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Data Analysis/Data Visualization/DV-06-Designe Principles.md"
+    },
+    "posts/Data Analysis/Data Visualization/DV-Review": {
+      "hash": "f88ce0bc2eaefad9bc68b816e2e7d9316e633aa4",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Data Analysis/Data Visualization/DV-Review.md"
+    },
+    "posts/Machine Learning/Machine Learning Overview": {
+      "hash": "b4a3415ccea2ef91cde82eaea2f2156184702be3",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Machine Learning/Machine Learning Overview.md"
+    },
+    "posts/Numerical Computation/NC-Review": {
+      "hash": "bdbd87c6e4cf1c1114a3c696743e22638841ab75",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Numerical Computation/NC-Review.md"
+    },
+    "posts/Research/BioInfo/AlphaFold2": {
+      "hash": "0a918aa1baa736e7e4899001914bf93ce0e18016",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Research/BioInfo/AlphaFold2.md"
+    },
+    "posts/Research/BioInfo/Network-Deconvolution": {
+      "hash": "938896b962ea8e2004eca5048a1c63463aca2c28",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Research/BioInfo/Network-Deconvolution.md"
+    },
+    "posts/Research/BioInfo/Ploidy/Ploidy Review": {
+      "hash": "71a4c2397c438521e3c2e9b7c758fa4202a35388",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Research/BioInfo/Ploidy/Ploidy Review.md"
+    },
+    "posts/Research/SP-HyperDecoder": {
+      "hash": "0d879c4769219184b8d1cc38b57a6ab01865f881",
+      "sourcePath": "/home/runner/work/vitepress-blog/vitepress-blog/docs/posts/Research/SP-HyperDecoder.md"
+    }
+  }
+}

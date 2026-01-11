@@ -1,0 +1,15 @@
+import{_ as h}from"./slidev/CodeBlockWrapper.vue_vue_type_script_setup_true_lang-Dxi-pjie.js";import{o as k,c as p,k as t,l as o,m as c,e as s,aa as i,q as d,s as g,B as e}from"./modules/vue-Dm9AcF7l.js";import{I as A}from"./slidev/default-fHKR4kDB.js";import{u as m,f as C}from"./slidev/context-IYVUWHNP.js";import"./modules/unplugin-icons-D-FzR0MF.js";import"./index-BYY-hKlC.js";import"./modules/shiki-SyLk75BH.js";const N={__name:"DSA-Quick Sort.md__slidev_5",setup(D){const{$slidev:f,$nav:E,$clicksContext:l,$clicks:$,$page:B,$renderContext:u,$frontmatter:n}=m();return l.setup(),(y,a)=>{const r=h;return k(),p(A,d(g(e(C)(e(n),4))),{default:t(()=>[o(r,c({},{ranges:[]}),{default:t(()=>[...a[0]||(a[0]=[s("pre",{class:"shiki shiki-themes vitesse-dark vitesse-light slidev-code",style:{"--shiki-dark":"#dbd7caee","--shiki-light":"#393a34","--shiki-dark-bg":"#121212","--shiki-light-bg":"#ffffff"}},[s("code",{class:"language-pseudo"},[s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"\\begin{algorithm}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"\\caption{Quick Sort}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"\\begin{algorithmic}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"    \\Function{QUICKSORT}{$A, left, right$}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"        \\If{$left \\ge right - 10$}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"            \\State \\Call{INSERTIONSORT}{$A, left, right$}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"            \\State \\Return")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"        \\EndIf")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"   ")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#4D9375","--shiki-light":"#1C6B48"}},"        \\State $q \\gets$ \\Call{PARTITION}{$A, left, right$} \\Comment{$q$ is the pivot position}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#4D9375","--shiki-light":"#1C6B48"}},"        \\State \\Call{QUICKSORT}{$A, left, q - 1$}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#4D9375","--shiki-light":"#1C6B48"}},"        \\State \\Call{QUICKSORT}{$A, q + 1, right$}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#4D9375","--shiki-light":"#1C6B48"}},"    \\EndFunction")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"\\end{algorithmic}")]),i(`
+`),s("span",{class:"line"},[s("span",{style:{"--shiki-dark":"#DBD7CAEE","--shiki-light":"#393A34"}},"\\end{algorithm}")])])],-1)])]),_:1},16)]),_:1},16)}}};export{N as default};
