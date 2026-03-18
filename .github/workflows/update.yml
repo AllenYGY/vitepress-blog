@@ -73,15 +73,31 @@ jobs:
         run: |
           python movefolder.py
 
+      - name: Validate synced NOTE content
+        id: synced_posts
+        if: steps.note_check.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          if [ ! -d "docs/posts" ]; then
+            echo "docs/posts was not created after NOTE sync"
+            exit 1
+          fi
+
+          POST_MD_COUNT=$(find docs/posts -type f -name "*.md" | wc -l | tr -d ' ')
+          echo "post_md_count=$POST_MD_COUNT" >> "$GITHUB_OUTPUT"
+          echo "Synced markdown posts: $POST_MD_COUNT"
+          find docs/posts -maxdepth 2 -type f | sort | sed -n '1,40p'
+
+          if [ "$POST_MD_COUNT" -eq 0 ]; then
+            echo "NOTE sync produced zero markdown posts. Refusing to publish an empty site."
+            exit 1
+          fi
+
       - name: Detect content changes
         id: changes
         if: steps.note_check.outputs.changed == 'true'
         run: |
-          if git status --porcelain | grep -q .; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
-            echo "changed=false" >> $GITHUB_OUTPUT
-          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Update timestamp
         if: steps.changes.outputs.changed == 'true'
@@ -143,6 +159,36 @@ jobs:
           echo "Building full site..."
           rm -rf public
           npx vitepress build docs
+
+      - name: Validate build output
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          for path in \
+            public/index.html \
+            public/page/blog.html \
+            public/page/tags.html \
+            public/page/archive.html \
+            public/page/friend.html; do
+            if [ ! -f "$path" ]; then
+              echo "Missing expected build artifact: $path"
+              exit 1
+            fi
+          done
+
+          if [ ! -d "public/posts" ]; then
+            echo "Build did not produce public/posts"
+            exit 1
+          fi
+
+          POST_HTML_COUNT=$(find public/posts -type f -name "*.html" | wc -l | tr -d ' ')
+          echo "Built post HTML pages: $POST_HTML_COUNT"
+          find public/posts -maxdepth 2 -type f | sort | sed -n '1,40p'
+
+          if [ "$POST_HTML_COUNT" -eq 0 ]; then
+            echo "Build produced zero post pages. Refusing to publish an empty site."
+            exit 1
+          fi
 
       # Step 7.5: 确保 CNAME 文件存在于 public 目录
       - name: Ensure CNAME in public
