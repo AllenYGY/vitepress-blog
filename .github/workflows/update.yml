@@ -148,15 +148,31 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building guide subset..."
+          rm -rf public public-guide
           find docs/posts -name "*.md" -delete 2>/dev/null || true
           find docs/page -name "*.md" -delete 2>/dev/null || true
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
-          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
+          node <<'EOF'
+          const fs = require('node:fs');
+          const configPath = 'docs/.vitepress/config.ts';
+          const needle = 'withMermaid({';
+          const content = fs.readFileSync(configPath, 'utf8');
+          if (!content.includes('ignoreDeadLinks: true')) {
+            if (!content.includes(needle)) {
+              throw new Error(`Cannot find "${needle}" in ${configPath}`);
+            }
+            fs.writeFileSync(
+              configPath,
+              content.replace(needle, `${needle}\n  ignoreDeadLinks: true,`)
+            );
+          }
+          EOF
           npx vitepress build docs
           mkdir -p public-guide
-          cp -r docs/.vitepress/dist/* public-guide/ 2>/dev/null || true
+          cp -r public/* public-guide/ 2>/dev/null || true
+          rm -rf public
           rm -rf docs
           cp -r docs-full docs
 
@@ -166,15 +182,31 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building posts subset..."
+          rm -rf public public-posts
           find docs/guide -name "*.md" -delete 2>/dev/null || true
           find docs/page -name "*.md" -delete 2>/dev/null || true
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
-          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
+          node <<'EOF'
+          const fs = require('node:fs');
+          const configPath = 'docs/.vitepress/config.ts';
+          const needle = 'withMermaid({';
+          const content = fs.readFileSync(configPath, 'utf8');
+          if (!content.includes('ignoreDeadLinks: true')) {
+            if (!content.includes(needle)) {
+              throw new Error(`Cannot find "${needle}" in ${configPath}`);
+            }
+            fs.writeFileSync(
+              configPath,
+              content.replace(needle, `${needle}\n  ignoreDeadLinks: true,`)
+            );
+          }
+          EOF
           npx vitepress build docs
           mkdir -p public-posts
-          cp -r docs/.vitepress/dist/* public-posts/ 2>/dev/null || true
+          cp -r public/* public-posts/ 2>/dev/null || true
+          rm -rf public
           rm -rf docs
           cp -r docs-full docs
 
@@ -184,12 +216,28 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building root/page subset..."
+          rm -rf public public-root
           find docs/guide -name "*.md" -delete 2>/dev/null || true
           find docs/posts -name "*.md" -delete 2>/dev/null || true
-          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
+          node <<'EOF'
+          const fs = require('node:fs');
+          const configPath = 'docs/.vitepress/config.ts';
+          const needle = 'withMermaid({';
+          const content = fs.readFileSync(configPath, 'utf8');
+          if (!content.includes('ignoreDeadLinks: true')) {
+            if (!content.includes(needle)) {
+              throw new Error(`Cannot find "${needle}" in ${configPath}`);
+            }
+            fs.writeFileSync(
+              configPath,
+              content.replace(needle, `${needle}\n  ignoreDeadLinks: true,`)
+            );
+          }
+          EOF
           npx vitepress build docs
           mkdir -p public-root
-          cp -r docs/.vitepress/dist/* public-root/ 2>/dev/null || true
+          cp -r public/* public-root/ 2>/dev/null || true
+          rm -rf public
           rm -rf docs
           cp -r docs-full docs
 
