@@ -65,7 +65,7 @@ jobs:
         run: |
           echo "Cloning NOTE repository using SSH"
           cd docs
-          git clone git@github.com:AllenYGY/NOTE.git 
+          git clone git@github.com:AllenYGY/NOTE.git
           cd ..
 
       - name: Sync NOTE content
@@ -118,6 +118,8 @@ jobs:
       - name: Set up Swap Space
         if: steps.changes.outputs.changed == 'true'
         run: |
+          sudo swapoff /swapfile 2>/dev/null || true
+          sudo rm -f /swapfile
           sudo fallocate -l 4G /swapfile
           sudo chmod 600 /swapfile
           sudo mkswap /swapfile
@@ -133,44 +135,70 @@ jobs:
           echo "Building Slidev decks..."
           npm run build:slides
 
+      # --- 分块构建: 通过临时移除文件实现真正的子集构建 ---
+      - name: Backup docs structure
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          echo "Backing up full docs directory..."
+          cp -r docs docs-full
+
       - name: Build vitepress-blog (guide subset)
         if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
-          echo "Building guide subset with reduced memory pressure..."
-          rm -rf public public-guide
-          npx vitepress build docs --sourcemap=false --minify=false --include "guide/**"
-          if [ -d public ]; then mv public public-guide; else mkdir -p public-guide; fi
+          echo "Building guide subset..."
+          # 移除非 guide 的内容目录，保留 .vitepress 和必要配置
+          rm -rf docs/posts docs/page
+          # 用占位 index.md 避免构建报错
+          echo "---" > docs/index.md
+          echo "layout: home" >> docs/index.md
+          echo "---" >> docs/index.md
+          npx vitepress build docs
+          mkdir -p public-guide
+          cp -r docs/.vitepress/dist/* public-guide/ 2>/dev/null || true
+          # 还原 docs
+          rm -rf docs
+          cp -r docs-full docs
 
       - name: Build vitepress-blog (posts subset)
         if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
-          echo "Building posts subset with reduced memory pressure..."
-          rm -rf public public-posts
-          npx vitepress build docs --sourcemap=false --minify=false --include "posts/**"
-          if [ -d public ]; then mv public public-posts; else mkdir -p public-posts; fi
+          echo "Building posts subset..."
+          rm -rf docs/guide docs/page
+          echo "---" > docs/index.md
+          echo "layout: home" >> docs/index.md
+          echo "---" >> docs/index.md
+          npx vitepress build docs
+          mkdir -p public-posts
+          cp -r docs/.vitepress/dist/* public-posts/ 2>/dev/null || true
+          rm -rf docs
+          cp -r docs-full docs
 
       - name: Build vitepress-blog (root/page subset)
         if: steps.changes.outputs.changed == 'true'
         env:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
-          echo "Building root/page subset with reduced memory pressure..."
-          rm -rf public public-root
-          npx vitepress build docs --sourcemap=false --minify=false --include "index.md" "page/**"
-          if [ -d public ]; then mv public public-root; else mkdir -p public-root; fi
+          echo "Building root/page subset..."
+          rm -rf docs/guide docs/posts
+          npx vitepress build docs
+          mkdir -p public-root
+          cp -r docs/.vitepress/dist/* public-root/ 2>/dev/null || true
+          rm -rf docs
+          cp -r docs-full docs
 
       - name: Merge build outputs
         if: steps.changes.outputs.changed == 'true'
         run: |
           echo "Merging subset builds..."
-          rm -rf public
+          rm -rf public docs-full
           mkdir -p public
-          rsync -a public-guide/ public/ || true
+          # root 先铺底，guide 和 posts 覆盖上去
           rsync -a public-root/ public/ || true
+          rsync -a public-guide/ public/ || true
           rsync -a public-posts/ public/ || true
           rm -rf public-guide public-root public-posts
 
