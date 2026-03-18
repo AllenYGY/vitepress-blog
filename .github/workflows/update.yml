@@ -135,7 +135,7 @@ jobs:
           echo "Building Slidev decks..."
           npm run build:slides
 
-      # --- 分块构建: 通过临时移除文件实现真正的子集构建 ---
+      # --- 分块构建: 备份完整 docs 目录 ---
       - name: Backup docs structure
         if: steps.changes.outputs.changed == 'true'
         run: |
@@ -148,16 +148,14 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building guide subset..."
-          # 移除非 guide 的内容目录，保留 .vitepress 和必要配置
-          rm -rf docs/posts docs/page
-          # 用占位 index.md 避免构建报错
+          find docs/posts -name "*.md" -delete 2>/dev/null || true
+          find docs/page -name "*.md" -delete 2>/dev/null || true
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
           npx vitepress build docs
           mkdir -p public-guide
           cp -r docs/.vitepress/dist/* public-guide/ 2>/dev/null || true
-          # 还原 docs
           rm -rf docs
           cp -r docs-full docs
 
@@ -167,7 +165,8 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building posts subset..."
-          rm -rf docs/guide docs/page
+          find docs/guide -name "*.md" -delete 2>/dev/null || true
+          find docs/page -name "*.md" -delete 2>/dev/null || true
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
@@ -183,7 +182,8 @@ jobs:
           NODE_OPTIONS: --max-old-space-size=12288
         run: |
           echo "Building root/page subset..."
-          rm -rf docs/guide docs/posts
+          find docs/guide -name "*.md" -delete 2>/dev/null || true
+          find docs/posts -name "*.md" -delete 2>/dev/null || true
           npx vitepress build docs
           mkdir -p public-root
           cp -r docs/.vitepress/dist/* public-root/ 2>/dev/null || true
@@ -196,7 +196,6 @@ jobs:
           echo "Merging subset builds..."
           rm -rf public docs-full
           mkdir -p public
-          # root 先铺底，guide 和 posts 覆盖上去
           rsync -a public-root/ public/ || true
           rsync -a public-guide/ public/ || true
           rsync -a public-posts/ public/ || true
