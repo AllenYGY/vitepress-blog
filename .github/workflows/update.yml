@@ -153,6 +153,7 @@ jobs:
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
+          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
           npx vitepress build docs
           mkdir -p public-guide
           cp -r docs/.vitepress/dist/* public-guide/ 2>/dev/null || true
@@ -170,6 +171,7 @@ jobs:
           echo "---" > docs/index.md
           echo "layout: home" >> docs/index.md
           echo "---" >> docs/index.md
+          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
           npx vitepress build docs
           mkdir -p public-posts
           cp -r docs/.vitepress/dist/* public-posts/ 2>/dev/null || true
@@ -184,6 +186,7 @@ jobs:
           echo "Building root/page subset..."
           find docs/guide -name "*.md" -delete 2>/dev/null || true
           find docs/posts -name "*.md" -delete 2>/dev/null || true
+          sed -i 's/defineConfig({/defineConfig({ ignoreDeadLinks: true,/' docs/.vitepress/config.ts
           npx vitepress build docs
           mkdir -p public-root
           cp -r docs/.vitepress/dist/* public-root/ 2>/dev/null || true
