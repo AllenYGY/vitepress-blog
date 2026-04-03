@@ -2,27 +2,13 @@ import os
 import shutil
 
 ONLY_FOLDERS = {
-    "Algorithm",
-    "Bioinformatics",
-    "Data Analysis",
-    "Web",
-    "Database Management System",
-    "Research",
-    "Deep Learning",
-    "Share",
-    "Computer Organization",
-    "Computer Network",
-    "Operating System",
-    "Computer Vision",
-    "Machine Learning",
-    "Numerical Computation",
-    "Theory Of Computation",
-    "Compiler Construction",
-    "Tools",
-    "Computer Graphics",
-    "Software Engineering",
-    "Functional Programming",
-    "Bayesian Network",
+    "Algorithm", "Bioinformatics", "Data Analysis", "Web",
+    "Database Management System", "Research", "Deep Learning", "Share",
+    "Computer Organization", "Computer Network", "Operating System",
+    "Computer Vision", "Machine Learning", "Numerical Computation",
+    "Theory Of Computation", "Compiler Construction", "Tools",
+    "Computer Graphics", "Software Engineering", "Functional Programming",
+    "Bayesian Network", "Graph Neural Network"
 }
 
 # 源目录和目标目录
@@ -160,11 +146,15 @@ def clean_posts_directly():
     当 NOTE 文件夹不存在时，直接清理 posts 文件夹。
     """
     print("=" * 50)
-    print(f"NOTE directory not found. Cleaning posts directory directly: {POSTS_DIR}")
+    print(
+        f"NOTE directory not found. Cleaning posts directory directly: {POSTS_DIR}"
+    )
     print("=" * 50)
 
     if not os.path.exists(POSTS_DIR):
-        print(f"Posts directory '{POSTS_DIR}' also does not exist. Nothing to do.")
+        print(
+            f"Posts directory '{POSTS_DIR}' also does not exist. Nothing to do."
+        )
         return
     # 遍历 posts 文件夹
     for item in os.listdir(POSTS_DIR):
