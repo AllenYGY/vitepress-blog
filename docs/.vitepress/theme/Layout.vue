@@ -3,11 +3,7 @@
     <div id="Loading" v-if="isLoading"></div>
   </Transition>
 
-  <Layout
-    class="bg-no-repeat bg-center bg-fixed bg-cover"
-    :style="bgImg ? { 'background-image': `url(${bgImg})` } : {}"
-    :class="{ loadingStyle: isLoading, 'post-page': isPostPage }"
-  >
+  <Layout :class="{ loadingStyle: isLoading, 'post-page': isPostPage }">
     <template #doc-before>
       <PostHero v-if="isPostPage" />
       <template v-else>
@@ -26,7 +22,7 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme';
 import { useData, useRoute } from 'vitepress';
-import { onMounted, ref, watch, computed } from 'vue';
+import { computed } from 'vue';
 import { useLoading } from './composables/useLoading';
 import Comment from './components/Comment.vue';
 import DocTags from '../../components/DocTags.vue';
@@ -40,7 +36,7 @@ const { isLoading } = useLoading(() =>
   import('../../../node_modules/vitepress-theme-open17/tailwind.js')
 );
 
-const { frontmatter, isDark, theme } = useData();
+const { frontmatter, theme } = useData();
 
 const mergedFrontmatter = computed(() => {
   return Object.assign(
@@ -55,8 +51,6 @@ const mergedFrontmatter = computed(() => {
 const blogConfig = theme.value.blog || {};
 const useTitle = blogConfig?.usingTitleFromFrontmatter ?? true;
 const title = computed(() => mergedFrontmatter?.value.title ?? null);
-const isBlogTop = ref(mergedFrontmatter.value.layout === 'blog');
-const bgImg = ref(null);
 const route = useRoute();
 const isPostPage = computed(() => {
   const path = route.path || '';
@@ -74,48 +68,12 @@ const showBacklinks = computed(() => {
   if (layout && layout !== 'doc') return false;
   return true;
 });
-
-onMounted(() => {
-  window.addEventListener('scroll', () => {
-    isBlogTop.value = window.scrollY <= 50;
-  });
-  updateBgImg();
-});
-
-const trigger = computed(() => ({
-  isDark: isDark.value,
-  route: route.path,
-}));
-
-watch(trigger, () => {
-  updateBgImg();
-});
-
-const updateBgImg = () => {
-  bgImg.value = getBgImg();
-};
-
-const getBgImg = () => {
-  const getBgImageByType = (imageType) => {
-    const globalImage =
-      typeof blogConfig?.bgImage === 'object' ? blogConfig?.bgImage[imageType] : blogConfig?.bgImage;
-    const localImage =
-      typeof mergedFrontmatter.value.bgimage === 'object'
-        ? mergedFrontmatter.value.bgimage[imageType]
-        : mergedFrontmatter.value.bgimage;
-    return localImage || globalImage || null;
-  };
-  return isDark.value ? getBgImageByType('dark') : getBgImageByType('light');
-};
 </script>
 
 <style>
-#VPContent {
-  background: #ffffff74;
-}
-
+#VPContent,
 .dark #VPContent {
-  background: #1b1b1fc3;
+  background: var(--vp-c-bg);
 }
 
 #VPContent .aside-curtain {

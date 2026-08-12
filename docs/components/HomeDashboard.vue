@@ -3,13 +3,13 @@
     <section id="about" class="academic-section academic-about">
       <div class="academic-section__heading">
         <p class="academic-section__eyebrow">About</p>
-        <h2>Curious about intelligence,<br />from data to systems.</h2>
+        <h2>About me.</h2>
       </div>
       <div class="academic-about__body">
         <p class="academic-about__lead">
-          I am a Computer Science student at Beijing Normal–Hong Kong Baptist University. My work
-          sits at the intersection of machine learning, causal inference, and systems—especially
-          when those ideas help explain complex networks or build more capable software.
+          I am a master’s student in Computer Science at The Chinese University of Hong Kong. My
+          current research interests center on bioinformatics, computational biology, and AI
+          agents, with an emphasis on turning methods into useful and reproducible systems.
         </p>
         <p>
           I learn in public. Alongside research prototypes, this website contains a growing archive
@@ -39,7 +39,12 @@
           <h3>{{ area.title }}</h3>
           <p>{{ area.description }}</p>
           <div class="research-card__tags"><span v-for="tag in area.tags" :key="tag">{{ tag }}</span></div>
-          <a v-if="area.link" :href="withBase(area.link)">Explore related notes <span>↗</span></a>
+          <a
+            v-if="area.link"
+            :href="area.external ? area.link : withBase(area.link)"
+            :target="area.external ? '_blank' : undefined"
+            :rel="area.external ? 'noreferrer' : undefined"
+          >Explore related work <span>↗</span></a>
         </article>
       </div>
     </section>
@@ -128,8 +133,8 @@
         <a class="academic-button academic-button--outline" :href="withBase('/page/blog')">Read my notes <span>→</span></a>
       </div>
       <div class="academic-contact__footer">
-        <span>Junya Yang · 杨俊雅</span>
-        <span>Zhuhai, China · UTC+8</span>
+        <span>Junya Yang · 杨钧涯</span>
+        <span>Hong Kong · UTC+8</span>
       </div>
     </section>
   </div>
@@ -150,32 +155,26 @@ const totalPosts = computed(() => posts.length);
 
 const researchAreas = [
   {
-    number: '01', tone: 'blue', title: 'Causal Learning & Emergence',
-    description: 'Understanding causal structure, effective information, and how higher-level organization emerges from complex systems.',
-    tags: ['Causal inference', 'Effective information', 'Complex systems'],
-    link: '/posts/Causality/Causal-EI for Markov Chain Derivation',
-    icon: '<svg viewBox="0 0 48 48" fill="none"><circle cx="12" cy="24" r="5"/><circle cx="36" cy="12" r="5"/><circle cx="36" cy="36" r="5"/><path d="M17 22l14-7M17 26l14 7M36 17v14"/></svg>',
-  },
-  {
-    number: '02', tone: 'green', title: 'Machine Learning & Reasoning',
-    description: 'Studying probabilistic models, representation learning, and reliable reasoning methods for intelligent systems.',
-    tags: ['Bayesian networks', 'Deep learning', 'LLM reasoning'],
-    link: '/posts/Machine Learning/Machine Learning Overview',
-    icon: '<svg viewBox="0 0 48 48" fill="none"><rect x="9" y="9" width="30" height="30" rx="7"/><path d="M17 20h14M17 28h8M24 5v4M24 39v4M5 24h4M39 24h4"/></svg>',
-  },
-  {
-    number: '03', tone: 'amber', title: 'Computational Biology',
-    description: 'Applying network thinking and data-driven methods to biological systems and cell-specific relationships.',
-    tags: ['Network reconstruction', 'Bioinformatics', 'Single-cell data'],
+    number: '01', tone: 'blue', title: 'Bioinformatics',
+    description: 'Developing computational approaches for biological data, with particular interest in network reconstruction and data-driven discovery.',
+    tags: ['Biological data', 'Network inference', 'Machine learning'],
     link: '/posts/Network-Deconvolution',
     icon: '<svg viewBox="0 0 48 48" fill="none"><path d="M16 8c12 7 4 25 16 32M32 8c-12 7-4 25-16 32M14 14h20M12 24h24M14 34h20"/></svg>',
   },
   {
-    number: '04', tone: 'violet', title: 'Systems & Developer Tools',
-    description: 'Building software that makes knowledge work, automation, and everyday computing more fluid and useful.',
-    tags: ['Operating systems', 'AI agents', 'Developer experience'],
-    link: '/posts/Operating System/Lecture/01-Operating System Introduction',
-    icon: '<svg viewBox="0 0 48 48" fill="none"><rect x="7" y="9" width="34" height="26" rx="4"/><path d="M14 18l6 5-6 5M24 28h10M18 40h12"/></svg>',
+    number: '02', tone: 'green', title: 'Computational Biology',
+    description: 'Studying biological systems through models, algorithms, and cell-specific relationships that connect data with mechanism.',
+    tags: ['Systems biology', 'Single-cell data', 'Computational modeling'],
+    link: '/posts/Network-Deconvolution',
+    icon: '<svg viewBox="0 0 48 48" fill="none"><circle cx="14" cy="15" r="5"/><circle cx="34" cy="13" r="4"/><circle cx="31" cy="34" r="6"/><circle cx="12" cy="34" r="3"/><path d="M18 16l12-2M16 19l12 11M15 32l10 1M34 17l-2 11"/></svg>',
+  },
+  {
+    number: '03', tone: 'violet', title: 'AI Agents',
+    description: 'Building agentic systems that can plan, use tools, coordinate workflows, and support scientific and technical work.',
+    tags: ['Agentic AI', 'Tool use', 'Workflow automation'],
+    link: 'https://github.com/AllenYGY/GAgent',
+    external: true,
+    icon: '<svg viewBox="0 0 48 48" fill="none"><rect x="9" y="11" width="30" height="27" rx="6"/><path d="M18 24h12M24 6v5M17 30h14"/><circle cx="17" cy="20" r="2"/><circle cx="31" cy="20" r="2"/></svg>',
   },
 ];
 

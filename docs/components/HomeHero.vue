@@ -4,19 +4,19 @@
       <div class="academic-hero__copy">
         <div class="academic-hero__kicker">
           <span class="academic-hero__status" aria-hidden="true"></span>
-          Student · Researcher · Builder
+          MSc Student · Researcher · Builder
         </div>
         <h1 id="academic-home-title" class="academic-hero__title">
           Junya Yang
-          <span>杨俊雅</span>
+          <span>杨钧涯</span>
         </h1>
         <p class="academic-hero__role">
-          Computer Science student at Beijing Normal–Hong Kong Baptist University
+          MSc student in Computer Science at The Chinese University of Hong Kong
         </p>
         <p class="academic-hero__intro">
-          I explore how <strong>causal reasoning</strong>, <strong>machine learning</strong>, and
-          <strong>computational systems</strong> can turn complex data into useful knowledge. This
-          site is my public research notebook and project archive.
+          My research focuses on <strong>bioinformatics</strong>, <strong>computational biology</strong>,
+          and <strong>AI agents</strong>. This site brings together my research work, software
+          projects, and a growing public collection of technical notes.
         </p>
         <div class="academic-hero__actions" aria-label="Primary links">
           <a class="academic-button academic-button--primary" href="#research">Research interests <span>→</span></a>
@@ -34,7 +34,7 @@
           </a>
           <span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-            Zhuhai, China
+            Hong Kong
           </span>
         </div>
       </div>
@@ -52,10 +52,9 @@
         <div class="academic-profile__body">
           <p class="academic-profile__label">Currently exploring</p>
           <div class="academic-profile__focus">
-            <span>Causal emergence</span>
-            <span>Bayesian networks</span>
-            <span>AI agents</span>
+            <span>Bioinformatics</span>
             <span>Computational biology</span>
+            <span>AI agents</span>
           </div>
           <div class="academic-profile__metrics">
             <div><strong>{{ totalPosts }}</strong><span>public notes</span></div>

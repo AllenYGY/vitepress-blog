@@ -2799,7 +2799,7 @@ body.slidev-fullscreen .slidev-layout__frame {
 .academic-about__principles strong { color: var(--academic-ink); font-size: 0.9rem; }
 .academic-about__principles small { margin-top: 0.35rem; color: var(--academic-muted); font-size: 0.75rem; line-height: 1.55; }
 
-.research-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.research-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .research-card { position: relative; min-height: 350px; padding: 2rem; overflow: hidden; border: 1px solid var(--academic-line); background: var(--academic-panel); transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .research-card:hover { transform: translateY(-4px); box-shadow: 0 1rem 2.8rem rgba(20, 35, 59, 0.08); }
 .research-card::after { content: ""; position: absolute; right: -5rem; bottom: -5rem; width: 13rem; height: 13rem; border-radius: 50%; background: var(--research-soft); opacity: 0.75; }
@@ -2869,6 +2869,7 @@ body.slidev-fullscreen .slidev-layout__frame {
   .academic-hero__grid { grid-template-columns: 1fr; }
   .academic-profile { width: min(420px, 100%); }
   .academic-about { grid-template-columns: 1fr; gap: 1rem; }
+  .research-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-card { grid-template-columns: 120px minmax(0, 1fr); }
   .project-card__stack { grid-column: 2; justify-content: flex-start; }
   .writing-layout { grid-template-columns: 1fr; }
@@ -2890,4 +2891,61 @@ body.slidev-fullscreen .slidev-layout__frame {
 
 @media (prefers-reduced-motion: reduce) {
   .academic-button, .research-card, .project-card__main > a { transition: none; }
+}
+
+/* Clean, image-free site canvas */
+html,
+body,
+.Layout,
+.VPContent {
+  background-color: #f6f7f9;
+}
+
+.dark html,
+.dark body,
+.dark .Layout,
+.dark .VPContent {
+  background-color: #0f141b;
+}
+
+.Layout {
+  background-image: none !important;
+}
+
+#VPContent,
+.dark #VPContent {
+  background: var(--vp-c-bg) !important;
+}
+
+.VPDoc .content-container,
+.VPDoc .aside-container,
+.VPDoc .VPDocAsideOutline {
+  background-image: none;
+}
+
+.VPDoc .container > .content {
+  background: var(--vp-c-bg);
+}
+
+.home-page .academic-hero {
+  background:
+    linear-gradient(rgba(31, 54, 82, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 54, 82, 0.035) 1px, transparent 1px),
+    var(--academic-paper);
+  background-size: 64px 64px, 64px 64px, 100% 100%;
+}
+
+.dark .home-page .academic-hero {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    var(--academic-paper);
+  background-size: 64px 64px, 64px 64px, 100% 100%;
+}
+
+.home-page .academic-hero::before {
+  width: 22rem;
+  height: 22rem;
+  border-color: color-mix(in srgb, var(--academic-blue) 18%, transparent);
+  box-shadow: 0 0 0 4rem color-mix(in srgb, var(--academic-blue) 3%, transparent);
 }

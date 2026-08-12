@@ -38,7 +38,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
   outDir: '../public',
   title: "Junya Yang | Academic Homepage",
   lang: "en-US",
-  description: "Junya Yang’s academic homepage: research interests, selected projects, and technical notes in computer science.",
+  description: "Junya Yang’s academic homepage: bioinformatics, computational biology, AI agents, selected projects, and technical notes.",
   transformPageData(pageData) {
     const frontmatter = pageData.frontmatter || {};
     const slidevEnabled =
@@ -123,7 +123,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       })();
     `,
     ],
-    ["meta", { name: "keywords", content: "Junya Yang, AllenYGY, academic homepage, computer science, causal inference, machine learning, bioinformatics" }],
+    ["meta", { name: "keywords", content: "Junya Yang, 杨钧涯, AllenYGY, CUHK, academic homepage, computer science, bioinformatics, computational biology, AI agents" }],
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
@@ -150,13 +150,11 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     blog: {
       tagPageLink: "/page/tags",
-      bgImage: { dark: "https://cdn.jsdelivr.net/gh/ALLENYGY/ImageSpace@master/IMAGE/patrick-schneider-PLrscRq3atA.jpg" ,
-        light:"https://cdn.jsdelivr.net/gh/AllenYGY/ImageSpace@main/uPic/Light.png"},
       direct: "lft",
       user: {
         name: "Junya Yang",
         avatar: "https://avatars.githubusercontent.com/u/121916671?v=4",
-        describe: "Computer Science · Research · Knowledge Garden",
+        describe: "CUHK Computer Science · Bioinformatics · AI Agents",
       },
       usingTitleFromFrontmatter: false,
     },

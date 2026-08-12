@@ -3,7 +3,7 @@ layout: home
 pageClass: home-page
 lastUpdated: false
 title: Junya Yang | Academic Homepage
-description: Junya Yang's academic homepage, research portfolio, project showcase, and public computer science knowledge garden.
+description: Junya Yang's academic homepage covering bioinformatics, computational biology, AI agents, projects, and technical notes.
 head:
   - - meta
     - name: author
@@ -13,7 +13,7 @@ head:
       content: Junya Yang | Academic Homepage
   - - meta
     - property: og:description
-      content: Research interests, selected projects, and technical notes by Junya Yang.
+      content: Bioinformatics, computational biology, AI agents, selected projects, and technical notes by Junya Yang.
   - - meta
     - property: og:type
       content: website
