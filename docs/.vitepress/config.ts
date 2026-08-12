@@ -36,9 +36,9 @@ const vitepressSidebarOptions = [
 
 export default defineConfigWithTheme<ThemeConfig>(withMermaid({
   outDir: '../public',
-  title: "AllenYGY's Blog",
-  lang: "zh-CN",
-  description: "Record AllenYGY's daily studies",
+  title: "Junya Yang | Academic Homepage",
+  lang: "en-US",
+  description: "Junya Yang’s academic homepage: research interests, selected projects, and technical notes in computer science.",
   transformPageData(pageData) {
     const frontmatter = pageData.frontmatter || {};
     const slidevEnabled =
@@ -106,7 +106,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
   },
   sitemap: {
-    hostname: "https://vitepress.open17.vip",
+    hostname: "https://blog.allenygy.vip",
   },
   head: [
     ["link", { rel: "icon", href: "/logo.png" }],
@@ -123,7 +123,11 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       })();
     `,
     ],
-    ["meta", { name: "keywords", content: "vitepress, theme, blog, AllenYGY" }],
+    ["meta", { name: "keywords", content: "Junya Yang, AllenYGY, academic homepage, computer science, causal inference, machine learning, bioinformatics" }],
+    ["meta", { property: "og:title", content: "Junya Yang | Academic Homepage" }],
+    ["meta", { property: "og:description", content: "Research, projects, and a public knowledge garden by Junya Yang." }],
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:url", content: "https://blog.allenygy.vip" }],
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
@@ -140,13 +144,13 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     editLink: {
       pattern:
-        "https://github.com/open17/vitepress-theme-open17/edit/master/docs/:path",
+        "https://github.com/AllenYGY/vitepress-blog/edit/master/docs/:path",
       text: "Help me polish the article"
     },
     feed: {
       baseUrl: "https://blog.allenygy.vip",
-      copyright: "Copyright © 2023-present open17",
-      image: "https://cdn.jsdelivr.net/gh/open17/Pic/img/202405071726176.png",
+      copyright: "Copyright © 2023-present Junya Yang",
+      image: "https://avatars.githubusercontent.com/u/121916671?v=4",
     },
     blog: {
       tagPageLink: "/page/tags",
@@ -154,9 +158,9 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
         light:"https://cdn.jsdelivr.net/gh/AllenYGY/ImageSpace@main/uPic/Light.png"},
       direct: "lft",
       user: {
-        name: "AllenYGY",
+        name: "Junya Yang",
         avatar: "https://avatars.githubusercontent.com/u/121916671?v=4",
-        describe: "AllenYGY's daily study and life",
+        describe: "Computer Science · Research · Knowledge Garden",
       },
       usingTitleFromFrontmatter: false,
     },
@@ -190,6 +194,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     },
     nav: [
       { text: "Home", link: "/" },
+      { text: "Research", link: "/#research" },
+      { text: "Projects", link: "/#projects" },
       { text: "Blog", link: "/page/blog" },
       { text: "Tags", link: "/page/tags" },
       { text: "Archive", link: "/page/archive" },

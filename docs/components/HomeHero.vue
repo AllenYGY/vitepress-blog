@@ -1,105 +1,94 @@
 <template>
-  <section class="home-hero">
-    <div class="home-hero__inner">
-      <div class="home-hero__content">
-        <div class="home-hero__eyebrow">AllenYGY's Knowledge Atlas</div>
-        <h1 class="home-hero__title">
-          Notes that connect
-          <span>systems, research, and everyday practice.</span>
-        </h1>
-        <p class="home-hero__subtitle">
-          A living workspace for algorithms, operating systems, bioinformatics, and the ideas that
-          tie them together.
-        </p>
-        <div class="home-hero__actions">
-          <a class="home-hero__button home-hero__button--primary" :href="withBase('/page/blog')">
-            Start reading
-          </a>
-          <a class="home-hero__button" :href="withBase('/page/archive')">Browse archive</a>
+  <section class="academic-hero" aria-labelledby="academic-home-title">
+    <div class="academic-hero__grid">
+      <div class="academic-hero__copy">
+        <div class="academic-hero__kicker">
+          <span class="academic-hero__status" aria-hidden="true"></span>
+          Student · Researcher · Builder
         </div>
-        <div class="home-hero__meta">
-          <span class="home-hero__meta-label">Latest update</span>
-          <span class="home-hero__meta-value">{{ latestDate || '—' }}</span>
+        <h1 id="academic-home-title" class="academic-hero__title">
+          Junya Yang
+          <span>杨俊雅</span>
+        </h1>
+        <p class="academic-hero__role">
+          Computer Science student at Beijing Normal–Hong Kong Baptist University
+        </p>
+        <p class="academic-hero__intro">
+          I explore how <strong>causal reasoning</strong>, <strong>machine learning</strong>, and
+          <strong>computational systems</strong> can turn complex data into useful knowledge. This
+          site is my public research notebook and project archive.
+        </p>
+        <div class="academic-hero__actions" aria-label="Primary links">
+          <a class="academic-button academic-button--primary" href="#research">Research interests <span>→</span></a>
+          <a class="academic-button" href="#projects">Selected projects <span>→</span></a>
+          <a class="academic-button academic-button--quiet" :href="withBase('/page/blog')">Read the blog <span>↗</span></a>
+        </div>
+        <div class="academic-hero__links" aria-label="Profile links">
+          <a href="https://github.com/AllenYGY" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.61-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .08 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 7.01a9.4 9.4 0 0 1 2.5.34c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.57c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" /></svg>
+            GitHub
+          </a>
+          <a href="https://blog.allenygy.vip" target="_blank" rel="noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+            blog.allenygy.vip
+          </a>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Zhuhai, China
+          </span>
         </div>
       </div>
 
-      <div class="home-hero__panel">
-        <div class="home-hero__panel-block">
-          <div class="home-hero__panel-title">Latest notes</div>
-          <div class="home-hero__panel-list">
-            <a
-              v-for="post in latestPosts"
-              :key="post.url"
-              class="home-hero__panel-item"
-              :href="withBase(post.url)"
-            >
-              <span>{{ post.frontmatter.title }}</span>
-              <span class="home-hero__panel-date">{{ formatDate(post.frontmatter.date) }}</span>
-            </a>
+      <aside class="academic-profile" aria-label="Profile summary">
+        <div class="academic-profile__portrait-wrap">
+          <div class="academic-profile__ring" aria-hidden="true"></div>
+          <img
+            class="academic-profile__portrait"
+            src="https://avatars.githubusercontent.com/u/121916671?v=4"
+            alt="Portrait of Junya Yang"
+          />
+          <span class="academic-profile__badge">AY</span>
+        </div>
+        <div class="academic-profile__body">
+          <p class="academic-profile__label">Currently exploring</p>
+          <div class="academic-profile__focus">
+            <span>Causal emergence</span>
+            <span>Bayesian networks</span>
+            <span>AI agents</span>
+            <span>Computational biology</span>
+          </div>
+          <div class="academic-profile__metrics">
+            <div><strong>{{ totalPosts }}</strong><span>public notes</span></div>
+            <div><strong>{{ totalTags }}</strong><span>topics</span></div>
+            <div><strong>{{ latestYear }}</strong><span>latest update</span></div>
           </div>
         </div>
-        <div class="home-hero__panel-divider"></div>
-        <div class="home-hero__panel-block">
-          <div class="home-hero__panel-title">Focus tags</div>
-          <div class="home-hero__panel-tags">
-            <button
-              v-for="tag in topTags"
-              :key="tag.name"
-              type="button"
-              class="home-hero__tag"
-              @click="openTagOverlay(tag.name)"
-            >
-              <span>{{ tag.name }}</span>
-              <span class="home-hero__tag-count">{{ tag.count }}</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      </aside>
     </div>
+    <a class="academic-hero__scroll" href="#about" aria-label="Scroll to about section">
+      <span>Explore</span><span aria-hidden="true">↓</span>
+    </a>
   </section>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import { withBase, inBrowser } from 'vitepress';
+import { withBase } from 'vitepress';
 import { data as posts } from '../page/blog-posts.data.js';
 
-const latestPosts = computed(() => posts.slice(0, 3));
-
-const latestDate = computed(() => {
-  if (!posts.length) return '';
-  return formatDate(posts[0].frontmatter.date);
-});
-
-const topTags = computed(() => {
-  const counts = {};
+const tagCounts = computed(() => {
+  const counts = new Set();
   posts.forEach((post) => {
-    const tags = post.frontmatter.tags || [];
-    tags.forEach((tag) => {
-      counts[tag] = (counts[tag] || 0) + 1;
-    });
+    (post.frontmatter.tags || []).forEach((tag) => counts.add(tag));
   });
-  return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 6)
-    .map(([name, count]) => ({ name, count }));
+  return counts.size;
 });
 
-const openTagOverlay = (tag) => {
-  if (!inBrowser || !tag) return;
-  const params = new URLSearchParams(window.location.search);
-  params.set('tag', tag);
-  const query = params.toString();
-  const next = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
-  window.history.replaceState({}, '', next);
-  window.dispatchEvent(new Event('popstate'));
-};
-
-const formatDate = (value) => {
-  if (!value) return '';
-  const raw = typeof value === 'string' ? value : String(value);
-  const match = raw.match(/\d{4}-\d{2}-\d{2}/);
-  if (!match) return raw;
-  return match[0];
-};
+const totalPosts = computed(() => posts.length);
+const totalTags = computed(() => tagCounts.value);
+const latestYear = computed(() => {
+  if (!posts.length) return '—';
+  const match = String(posts[0].frontmatter.date || '').match(/\d{4}/);
+  return match?.[0] || '—';
+});
 </script>
