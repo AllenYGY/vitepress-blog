@@ -2601,16 +2601,6 @@ body.slidev-fullscreen .slidev-layout__frame {
   line-height: 0.88;
 }
 
-.academic-hero__title span {
-  display: block;
-  margin-top: 0.55rem;
-  color: color-mix(in srgb, var(--academic-ink) 55%, transparent);
-  font-family: "PingFang SC", "Noto Sans CJK SC", sans-serif;
-  font-size: clamp(1.35rem, 2.2vw, 2rem);
-  font-weight: 400;
-  letter-spacing: 0.22em;
-}
-
 .academic-hero__role {
   max-width: 640px;
   margin: 2rem 0 0.7rem;

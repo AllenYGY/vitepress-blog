@@ -109,7 +109,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     hostname: "https://blog.allenygy.vip",
   },
   head: [
-    ["link", { rel: "icon", href: "/logo.png" }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
     [
       "script",
       {},
@@ -123,7 +123,7 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       })();
     `,
     ],
-    ["meta", { name: "keywords", content: "Junya Yang, 杨钧涯, AllenYGY, CUHK, academic homepage, computer science, bioinformatics, computational biology, AI agents" }],
+    ["meta", { name: "keywords", content: "Junya Yang, AllenYGY, CUHK, academic homepage, computer science, bioinformatics, computational biology, AI agents" }],
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
@@ -176,8 +176,8 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       lang: "en",
     },
     logo: {
-      dark: "/logo.png",
-      light: "/logo_light.png",
+      dark: "/logo-dark.svg",
+      light: "/logo.svg",
     },
     lastUpdated: {
       text: "Updated at",

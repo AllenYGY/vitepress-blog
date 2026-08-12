@@ -6,10 +6,7 @@
           <span class="academic-hero__status" aria-hidden="true"></span>
           MSc Student · Researcher · Builder
         </div>
-        <h1 id="academic-home-title" class="academic-hero__title">
-          Junya Yang
-          <span>杨钧涯</span>
-        </h1>
+        <h1 id="academic-home-title" class="academic-hero__title">Junya Yang</h1>
         <p class="academic-hero__role">
           MSc student in Computer Science at The Chinese University of Hong Kong
         </p>

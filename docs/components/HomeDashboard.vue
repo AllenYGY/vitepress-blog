@@ -133,7 +133,7 @@
         <a class="academic-button academic-button--outline" :href="withBase('/page/blog')">Read my notes <span>→</span></a>
       </div>
       <div class="academic-contact__footer">
-        <span>Junya Yang · 杨钧涯</span>
+        <span>Junya Yang</span>
         <span>Hong Kong · UTC+8</span>
       </div>
     </section>
