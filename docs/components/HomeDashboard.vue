@@ -174,14 +174,14 @@ const researchAreas = [
     number: '04', tone: 'violet', title: 'Systems & Developer Tools',
     description: 'Building software that makes knowledge work, automation, and everyday computing more fluid and useful.',
     tags: ['Operating systems', 'AI agents', 'Developer experience'],
-    link: '/posts/Operating System/Operating System Overview',
+    link: '/posts/Operating System/Lecture/01-Operating System Introduction',
     icon: '<svg viewBox="0 0 48 48" fill="none"><rect x="7" y="9" width="34" height="26" rx="4"/><path d="M14 18l6 5-6 5M24 28h10M18 40h12"/></svg>',
   },
 ];
 
 const projects = [
   {
-    name: 'CSCN Demo', type: 'Research prototype', year: '2025–2026',
+    name: 'CSCN Demo', type: 'Research prototype', year: '2026',
     description: 'A Python implementation and demonstration environment for exploring cell-specific causal network reconstruction.',
     stack: ['Python', 'Causal networks', 'Bioinformatics'], url: 'https://github.com/AllenYGY/CSCN-Demo',
   },
@@ -206,7 +206,7 @@ const knowledgeTopics = [
   { number: '01', name: 'Causality', description: 'Causal structure, emergence, information, and graphical models.', link: '/posts/Causality/Causal-EI for Markov Chain Derivation' },
   { number: '02', name: 'Machine Learning', description: 'Statistical learning, Bayesian methods, models, and evaluation.', link: '/posts/Machine Learning/Machine Learning Overview' },
   { number: '03', name: 'Computer Vision', description: 'Image formation, filtering, neural networks, and detection.', link: '/posts/Computer Vision/Computer Vision Overview' },
-  { number: '04', name: 'Systems', description: 'Operating systems, networks, compilers, and computer architecture.', link: '/posts/Operating System/Operating System Overview' },
+  { number: '04', name: 'Systems', description: 'Operating systems, networks, compilers, and computer architecture.', link: '/posts/Operating System/Lecture/01-Operating System Introduction' },
   { number: '05', name: 'Algorithms', description: 'Data structures, graph methods, strings, and problem solving.', link: '/posts/Algorithm/Algorithm' },
   { number: '06', name: 'Developer Tools', description: 'Git, containers, shells, environments, and practical workflows.', link: '/posts/Tools/Git/Git-For-Beginners' },
 ];

@@ -35,23 +35,27 @@
             {{ label.text }}
           </span>
         </div>
-        <div class="vp-contrib__grid" role="img" :aria-label="ariaLabel">
+        <div class="vp-contrib__grid" role="group" :aria-label="ariaLabel">
           <div class="vp-contrib__week" v-for="(week, wIdx) in weeks" :key="wIdx">
-            <div
+            <button
               v-for="day in week"
               :key="day.date"
+              type="button"
               class="vp-contrib__cell"
               :title="day.title"
+              :aria-label="day.title"
+              :aria-pressed="day.count ? selected?.date === day.date : undefined"
+              :disabled="day.count === 0"
               :data-level="day.level"
               :class="{ 'is-empty': day.count === 0 }"
               :style="{ gridRow: day.row }"
               @click="selectDay(day)"
-            ></div>
+            ></button>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="selected" class="vp-contrib__panel" role="dialog" aria-live="polite">
+    <div v-if="selected" class="vp-contrib__panel" role="region" aria-live="polite" :aria-label="`Notes published on ${selected.date}`">
       <div class="vp-contrib__panel-header">
         <div class="vp-contrib__panel-title">{{ selected.date }}</div>
         <button type="button" class="vp-contrib__close" @click="closePanel">Close</button>

@@ -14,6 +14,8 @@ export default createContentLoader('posts/**/*.md', {
             return acc;
           }, {})
         );
+        const publish = String(mergedFrontmatter.publish ?? 'true').toLowerCase();
+        if (publish === 'false') return null;
         if (mergedFrontmatter.tags) {
           mergedFrontmatter.tags = Array.isArray(mergedFrontmatter.tags)
             ? mergedFrontmatter.tags
@@ -25,6 +27,7 @@ export default createContentLoader('posts/**/*.md', {
           url: page.url,
         };
       })
+      .filter(Boolean)
       .sort((a, b) => {
         if (a.frontmatter.pin && !b.frontmatter.pin) {
           return -1;

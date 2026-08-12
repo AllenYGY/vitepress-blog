@@ -1960,6 +1960,9 @@ body.slidev-fullscreen .slidev-layout__frame {
   width: var(--vp-contrib-cell-size);
   height: var(--vp-contrib-cell-size);
   border-radius: 3px;
+  margin: 0;
+  padding: 0;
+  appearance: none;
   border: 1px solid rgba(0, 0, 0, 0.03);
   background: var(--vp-contrib-0);
   cursor: pointer;
@@ -1968,6 +1971,16 @@ body.slidev-fullscreen .slidev-layout__frame {
 
 .vp-contrib__cell.is-empty {
   cursor: default;
+  opacity: 1;
+}
+
+.vp-contrib__cell:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+.vp-contrib__cell[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--vp-c-brand-1) 55%, transparent);
 }
 
 .vp-contrib__cell[data-level="1"] {

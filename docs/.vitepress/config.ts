@@ -124,10 +124,6 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
     `,
     ],
     ["meta", { name: "keywords", content: "Junya Yang, AllenYGY, academic homepage, computer science, causal inference, machine learning, bioinformatics" }],
-    ["meta", { property: "og:title", content: "Junya Yang | Academic Homepage" }],
-    ["meta", { property: "og:description", content: "Research, projects, and a public knowledge garden by Junya Yang." }],
-    ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:url", content: "https://blog.allenygy.vip" }],
   ],
   themeConfig: {
     sidebar: generateSidebar(vitepressSidebarOptions),
