@@ -14,7 +14,7 @@
           <span>More</span>
         </div>
       </div>
-      <div class="vp-contrib__chart" :style="{ '--vp-contrib-weeks': weeks.length }">
+      <div ref="chartRef" class="vp-contrib__chart" :style="{ '--vp-contrib-weeks': weeks.length }">
         <div class="vp-contrib__months">
           <span
             v-for="label in monthLabels"
@@ -76,8 +76,10 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, nextTick, onMounted, ref } from "vue";
 import { withBase } from "vitepress";
+
+const chartRef = ref(null);
 
 const props = defineProps({
   counts: {
@@ -223,6 +225,13 @@ const ariaLabel = computed(() => {
 });
 
 const selected = ref(null);
+
+onMounted(async () => {
+  await nextTick();
+  const chart = chartRef.value;
+  if (!chart || chart.scrollWidth <= chart.clientWidth) return;
+  chart.scrollLeft = chart.scrollWidth - chart.clientWidth;
+});
 
 const selectDay = (day) => {
   if (!day.count) return;

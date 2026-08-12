@@ -1,19 +1,12 @@
 <template>
-  <div
-    class="hidden md:flex w-full md:rounded-xl p-5 flex-col justify-center items-center gap-3 dark:shadow-none shadow-md border-2 border-[var(--blog-border-c)] bg-[var(--vp-c-blog-bg)]"
-    v-if="!props.isMobile"
-  >
+  <section v-if="!props.isMobile" class="user-card user-card--desktop" aria-label="Author profile">
     <div class="user-card__avatar" v-if="userConfig?.avatar">
-      <img
-        :src="userConfig?.avatar"
-        alt="avatar"
-        class="object-cover object-center w-full h-full"
-      />
+      <img :src="userConfig?.avatar" alt="Portrait of Junya Yang" />
     </div>
-    <div class="text-xl font-bold text-center mt-1">
-      {{ userConfig?.name }}
+    <div class="user-card__identity">
+      <div class="user-card__name">{{ userConfig?.name }}</div>
+      <div class="user-card__description">{{ userConfig?.describe }}</div>
     </div>
-    <div class="text-center text-sm font-semibold">{{ userConfig?.describe }}</div>
     <div class="user-card__meta">
       <a class="user-card__stat" :href="withBase('/page/blog')">
         <div class="user-card__stat-label">Posts</div>
@@ -24,40 +17,35 @@
         <div class="user-card__stat-value">{{ tagNum }}</div>
       </a>
       <a class="user-card__stat" :href="withBase('/page/archive')">
-        <div class="user-card__stat-label">Archive</div>
+        <div class="user-card__stat-label">Years</div>
         <div class="user-card__stat-value">{{ archiveYears }}</div>
       </a>
     </div>
     <div class="user-card__cta">
-      <a class="user-card__button" :href="withBase('/page/blog')">Latest posts</a>
-      <a class="user-card__button user-card__button--ghost" :href="withBase('/page/archive')">
-        Browse archive
+      <a class="user-card__button user-card__button--primary" :href="withBase('/page/blog')">
+        Latest posts <span aria-hidden="true">→</span>
+      </a>
+      <a class="user-card__button" :href="withBase('/page/archive')">
+        Browse archive <span aria-hidden="true">↗</span>
       </a>
     </div>
-  </div>
-  <div class="flex md:hidden justify-center items-center w-full mt-10 flex-col gap-3" v-else>
+  </section>
+
+  <section v-else class="user-card user-card--mobile" aria-label="Author profile">
     <img
-      :src="userConfig?.avatar"
       v-if="userConfig?.avatar"
-      alt="avatar"
-      class="object-cover object-center w-32 rounded-full"
+      :src="userConfig?.avatar"
+      alt="Portrait of Junya Yang"
+      class="user-card__mobile-avatar"
     />
-    <div class="text-2xl font-bold text-center">{{ userConfig?.name }}</div>
-    <div class="text-center text-sm">{{ userConfig?.describe }}</div>
-    <div class="user-card__meta user-card__meta--mobile">
-      <a class="user-card__stat" :href="withBase('/page/blog')">
-        <div class="user-card__stat-label">Posts</div>
-        <div class="user-card__stat-value">{{ posts.length }}</div>
-      </a>
-      <a class="user-card__stat" :href="withBase('/page/tags')">
-        <div class="user-card__stat-label">Tags</div>
-        <div class="user-card__stat-value">{{ tagNum }}</div>
-      </a>
+    <div>
+      <div class="user-card__name">{{ userConfig?.name }}</div>
+      <div class="user-card__description">{{ userConfig?.describe }}</div>
     </div>
-    <div class="user-card__cta user-card__cta--mobile">
-      <a class="user-card__button" :href="withBase('/page/blog')">Latest posts</a>
-    </div>
-  </div>
+    <a class="user-card__button user-card__button--primary" :href="withBase('/page/blog')">
+      Latest posts <span aria-hidden="true">→</span>
+    </a>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -77,9 +65,7 @@ onMounted(() => {
   posts.forEach((post: { frontmatter: { tags: Array<string>; date?: string } }) => {
     const postTags = post.frontmatter.tags;
     if (postTags) {
-      postTags.forEach((tag: string) => {
-        tagSet.add(tag);
-      });
+      postTags.forEach((tag: string) => tagSet.add(tag));
     }
     const rawDate = post.frontmatter.date;
     if (rawDate) {

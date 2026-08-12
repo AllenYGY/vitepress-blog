@@ -15,7 +15,6 @@ const emit = defineEmits(['update:activeTag']);
 
 const { theme } = useData();
 const blogConfig = theme.value.blog || {};
-const direct = blogConfig?.direct || 'lft';
 
 let Tags = ref({ '': posts.length });
 let activeTag = ref('');
@@ -60,84 +59,68 @@ const setActiveTag = (tag) => {
 </script>
 
 <template>
-  <div class="w-full flex justify-center">
-    <div
-      class="flex w-full max-w-screen-2xl justify-center items-start pt-0 my-0 gap-5 md:px-20 flex-col-reverse"
-      :class="{
-        'md:flex-row': direct == 'lft',
-        'md:flex-row-reverse': direct == 'rgt',
-      }"
-    >
-      <div
-        class="flex bg-transparent w-full md:w-1/4 justify-center items-start py-16 flex-col gap-5"
-        v-if="!theme.blog.pureMode"
-      >
-        <UserCard :isMobile="false" />
-        <div
-          class="sidebar-tags flex w-full md:rounded-xl px-5 py-7 flex-col justify-center gap-4 dark:shadow-none shadow-md border-2 border-[var(--blog-border-c)] bg-[var(--vp-c-blog-bg)]"
-        >
-          <div class="sidebar-tags__header">
-            <div>
-              <div class="sidebar-tags__title">Tag Navigator</div>
-              <div class="sidebar-tags__subtitle">
-                {{ activeTag ? `Filtering: ${activeTag}` : 'All posts' }}
-              </div>
-            </div>
-            <div class="sidebar-tags__actions">
-              <button
-                class="sidebar-tags__all"
-                type="button"
-                :class="{ 'is-active': !activeTag }"
-                @click="setActiveTag('')"
-              >
-                All
-              </button>
-              <a v-if="blogConfig.tagPageLink" :href="blogConfig.tagPageLink">
-                <IconMore />
-              </a>
+  <div class="blog-layout">
+    <aside v-if="!theme.blog.pureMode" class="blog-layout__sidebar">
+      <UserCard :isMobile="false" />
+      <section class="sidebar-tags" aria-labelledby="tag-navigator-title">
+        <div class="sidebar-tags__header">
+          <div>
+            <div id="tag-navigator-title" class="sidebar-tags__title">Tag Navigator</div>
+            <div class="sidebar-tags__subtitle">
+              {{ activeTag ? `Filtering: ${activeTag}` : 'Browse the notebook by topic' }}
             </div>
           </div>
-          <input
-            v-model="tagQuery"
-            class="sidebar-tags__search"
-            type="search"
-            placeholder="Search tags..."
-            aria-label="Search tags"
-          />
-          <div class="sidebar-tags__list">
+          <div class="sidebar-tags__actions">
             <button
-              v-for="[tag, count] in filteredTags"
-              :key="tag"
-              class="sidebar-tags__item"
-              :class="{ 'is-active': activeTag === tag }"
+              class="sidebar-tags__all"
               type="button"
-              @click="setActiveTag(tag)"
+              :class="{ 'is-active': !activeTag }"
+              @click="setActiveTag('')"
             >
-              <span class="sidebar-tags__name">{{ tag }}</span>
-              <span class="sidebar-tags__count">{{ count }}</span>
+              All
             </button>
-          </div>
-          <div v-if="tagQuery.trim() && filteredTags.length === 0" class="sidebar-tags__empty">
-            No tags matched.
+            <a
+              v-if="blogConfig.tagPageLink"
+              class="sidebar-tags__more"
+              :href="blogConfig.tagPageLink"
+              aria-label="Open all tags"
+            >
+              <IconMore />
+            </a>
           </div>
         </div>
-        <WidgetCard />
-      </div>
-      <div class="flex md:w-3/4 py-20 justify-center items-center gap-5 flex-col w-full px-3">
-        <slot :activeTag="activeTag" />
-      </div>
-      <UserCard :isMobile="true" />
-    </div>
-    <Content v-if="showContent" />
+        <input
+          v-model="tagQuery"
+          class="sidebar-tags__search"
+          type="search"
+          placeholder="Search tags..."
+          aria-label="Search tags"
+        />
+        <div class="sidebar-tags__list">
+          <button
+            v-for="[tag, count] in filteredTags"
+            :key="tag"
+            class="sidebar-tags__item"
+            :class="{ 'is-active': activeTag === tag }"
+            type="button"
+            @click="setActiveTag(tag)"
+          >
+            <span class="sidebar-tags__name">{{ tag }}</span>
+            <span class="sidebar-tags__count">{{ count }}</span>
+          </button>
+        </div>
+        <div v-if="tagQuery.trim() && filteredTags.length === 0" class="sidebar-tags__empty">
+          No tags matched.
+        </div>
+      </section>
+      <WidgetCard />
+    </aside>
+
+    <main class="blog-layout__main">
+      <slot :activeTag="activeTag" />
+    </main>
+
+    <UserCard :isMobile="true" />
   </div>
+  <Content v-if="showContent" />
 </template>
-
-<style>
-.blog-home .VPContent {
-  padding-top: 0 !important;
-}
-
-.shadow-0 {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-</style>

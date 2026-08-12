@@ -99,7 +99,7 @@ const showBacklinks = computed(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000000;
+  background: var(--site-canvas, #f6f3ec);
   margin: 0;
   padding: 0%;
   z-index: 10000;

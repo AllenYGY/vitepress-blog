@@ -45,8 +45,10 @@ const realPage = (page) => {
   return page + pageGroup.value * pageGroupSize.value;
 };
 
-const isFirstPageGroup = () => {
-  return pageGroup.value == 0;
+const isFirstPageGroup = () => pageGroup.value === 0;
+
+const isLastPageGroup = () => {
+  return (pageGroup.value + 1) * pageGroupSize.value >= totalPage.value;
 };
 
 const changePage = (curr) => {
@@ -194,15 +196,17 @@ const openTagOverlay = (tag) => {
       <template v-for="state in [getPageState(activeTag)]" :key="state.total">
         <div v-if="state.featured" class="blog-feature">
           <a class="blog-feature__link" :href="withBase(state.featured.url)">
-            <div
-              class="blog-feature__media"
-              :style="{
-                backgroundImage: state.featured.frontmatter.cover
-                  ? `url(${state.featured.frontmatter.cover})`
-                  : 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(20, 184, 166, 0.2))',
-              }"
-            >
-              <div class="blog-feature__overlay"></div>
+            <div class="blog-feature__media" :class="{ 'has-cover': state.featured.frontmatter.cover }">
+              <img
+                v-if="state.featured.frontmatter.cover"
+                class="blog-feature__image"
+                :src="state.featured.frontmatter.cover"
+                alt=""
+                loading="lazy"
+              />
+              <div v-else class="blog-feature__monogram" aria-hidden="true">
+                {{ String(state.featured.frontmatter.title || 'A').charAt(0) }}
+              </div>
             </div>
             <div class="blog-feature__content">
               <div class="blog-feature__eyebrow">
@@ -279,41 +283,37 @@ const openTagOverlay = (tag) => {
       </template>
     </div>
 
-    <div
-      class="flex justify-between items-center gap-2 border-0 flex-row w-full px-5"
-      v-if="totalPage > 1"
-    >
-      <div class="w-14">
-        <div
-          @click="lastGroup()"
-          class="border-2 w-full h-8 text-center flex justify-center items-center cursor-pointer bg-[var(--vp-c-blog-bg)] rounded-md text-sm"
-          v-show="!isFirstPageGroup()"
-        >
-          Prev
-        </div>
-      </div>
-      <div class="flex justify-center items-center gap-2">
-        <div
-          @click="changePage(realPage(i))"
+    <nav v-if="totalPage > 1" class="blog-pagination" aria-label="Blog pagination">
+      <button
+        class="blog-pagination__control"
+        type="button"
+        :disabled="isFirstPageGroup()"
+        @click="lastGroup()"
+      >
+        Previous
+      </button>
+      <div class="blog-pagination__pages">
+        <button
           v-for="i in Math.min(totalPage, pageGroupSize)"
           v-show="realPage(i) <= totalPage"
-          class="border-2 w-7 h-7 text-center flex justify-center items-center cursor-pointer rounded-md"
-          :class="{
-            'bg-[var(--vp-c-brand-1)] text-white': realPage(i) === currentPage,
-            'bg-[var(--vp-c-blog-bg)]': realPage(i) !== currentPage,
-          }"
+          :key="realPage(i)"
+          class="blog-pagination__page"
+          :class="{ 'is-active': realPage(i) === currentPage }"
+          type="button"
+          :aria-current="realPage(i) === currentPage ? 'page' : undefined"
+          @click="changePage(realPage(i))"
         >
           {{ realPage(i) }}
-        </div>
+        </button>
       </div>
-      <div class="w-14">
-        <div
-          @click="nextGroup()"
-          class="border-2 w-full h-8 text-center flex justify-center items-center cursor-pointer bg-[var(--vp-c-blog-bg)] rounded-md text-sm"
-        >
-          Next
-        </div>
-      </div>
-    </div>
+      <button
+        class="blog-pagination__control"
+        type="button"
+        :disabled="isLastPageGroup()"
+        @click="nextGroup()"
+      >
+        Next
+      </button>
+    </nav>
   </ThemeLayout>
 </template>
