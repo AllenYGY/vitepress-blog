@@ -214,6 +214,15 @@ jobs:
           else
             echo "Warning: CNAME file not found"
           fi
-          git add .
+          git add -A
+          git add -f docs/posts
+
+          STAGED_POST_HTML_COUNT=$(git diff --cached --name-only --diff-filter=AM -- 'docs/posts/**/*.html' | wc -l | tr -d ' ')
+          echo "Staged post HTML pages: $STAGED_POST_HTML_COUNT"
+          if [ "$STAGED_POST_HTML_COUNT" -eq 0 ]; then
+            echo "Generated post pages were not staged for the page branch"
+            exit 1
+          fi
+
           git commit -m "Synchronous updates: Copy files from the NOTE repository"
           git push -f origin HEAD:page
