@@ -11,17 +11,6 @@ import wikiLinkPlugin from "./markdown/wikiLink";
 const vitepressSidebarOptions = [
   {
     documentRootPath: "docs",
-    scanStartPath: "guide",
-    resolvePath: "/guide/",
-    collapsed: true,
-    useTitleFromFileHeading: true,
-    useFolderTitleFromIndexFile: true,
-    useFolderLinkFromIndexFile: true,
-    excludeFilesByFrontmatter: true,
-    rootGroupCollapsed: true,
-  },
-  {
-    documentRootPath: "docs",
     scanStartPath: "posts",
     resolvePath: "/posts/",
     collapsed: true,
@@ -194,7 +183,6 @@ export default defineConfigWithTheme<ThemeConfig>(withMermaid({
       { text: "Tags", link: "/page/tags" },
       { text: "Archive", link: "/page/archive" },
       { text: "Friends", link: "/page/friend" },
-      // { text: "Guide", link: "/guide/0-intro/" },
       { text: "Note", 
         items: [
           { text: "Compiler Construction", link: "/posts/Compiler Construction/Lecture/01-Compiler Introduction/" },

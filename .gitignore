@@ -136,3 +136,5 @@ public/
 *.DS_Store
 docs/posts
 AGENTS.md
+# VitePress generated configuration bundles
+docs/.vitepress/*.timestamp-*.mjs

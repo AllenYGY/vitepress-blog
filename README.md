@@ -1,37 +1,50 @@
-# AllenYGY's BLOG
+# AllenYGY Blog
 
-## Project Structure & Module Organization
+Personal technical blog for Junya Yang, built with VitePress and published at [blog.allenygy.vip](https://blog.allenygy.vip/).
 
-- `docs/` hosts all site content; `index.md`, `guide/*`, and `page/*` define the landing page, documentation, and blog listings.
-- `docs/.vitepress/config.ts` controls site metadata, sidebar generation, and theme settings; `docs/.vitepress/theme/` extends `vitepress-theme-open17` and registers shared Vue components.
-- Shared building blocks live in `docs/components/` (e.g., `Slides.vue`, `Link.vue`); import them in Markdown through `<Slides />` syntax.
-- Static assets belong in `docs/public/`; reference them with absolute paths such as `/logo.png` to benefit from VitePress asset handling.
-- Python helpers (`addmeta.py`, `movefolder.py`) tidy Markdown metadata and migrate legacy notes into `docs/posts`; run them from the repo root when bulk-updating content.
+## Repository structure
 
-## Build, Test, and Development Commands
+- `docs/index.md` and `docs/page/` define the homepage and blog index pages.
+- `docs/.vitepress/config.ts` contains site metadata, navigation, feed, comments, and theme configuration.
+- `docs/.vitepress/theme/` and `docs/components/` contain the custom layout and reusable Vue components.
+- `docs/public/` contains source-controlled static assets such as the light and dark SVG logos.
+- `docs/posts/` is generated locally from the separate `NOTE` repository and is intentionally ignored by Git.
+- `movefolder.py` synchronizes publishable Markdown from `docs/NOTE` into `docs/posts` in the update workflow.
+- `scripts/` contains frontmatter normalization and Slidev build tooling.
 
-- `npm install` or `yarn install` installs the VitePress theme stack (both lockfiles are committed; keep them in sync).
-- `npm run dev` starts the local server on `http://localhost:8090` with hot reload for Markdown and Vue components.
-- `npm run build` emits the static site into `docs/public/`; treat warnings here as blockers before releasing.
-- `npm run preview` serves the production build and is the quickest way to sanity-check routes before a PR.
+## Development
 
-## Coding Style & Naming Conventions
+This repository uses npm and `package-lock.json` as its single package-manager source of truth.
 
-- Begin Markdown with YAML front matter including `title`, `date`, and `publish`; keep list indentation at two spaces to match existing files.
-- Name directories in kebab-case or ordered prefixes (`0-intro`, `1-config`) to control navigation weight.
-- Author Vue components in PascalCase and register them once in `docs/.vitepress/theme/index.js`.
-- Use ES module syntax in config files, and prefer relative imports rooted at `docs/` for clarity.
+```bash
+npm ci
+npm run dev
+```
 
-## Testing Guidelines
+The development server runs at `http://localhost:8090`.
 
-- There is no automated test suite; rely on `npm run build` for structural validation and `npm run preview` for visual QA.
-- When editing front matter in bulk, run `python addmeta.py` to auto-inject missing `publish: True` flags, then spot-check rendered pages.
-- Validate that new assets load by visiting affected routes locally and checking the browser console for 404s.
+## Build and verification
 
-## Commit & Pull Request Guidelines
+```bash
+npm run build
+npm run preview
+```
 
-- Write concise, imperative commit subjects (`Add open graph images`, `Fix nav link casing`); squash exploratory commits before requesting review.
-- Describe PR scope, list impacted sections or components, and attach screenshots or recordings for visual tweaks.
-- Link related issues or discussion threads and mention any required follow-up (CDN uploads, config secrets) so maintainers can coordinate deployments.
+`npm run build` normalizes frontmatter, builds Slidev decks into `docs/public/slides/`, and writes the VitePress output to `public/`. Both directories are generated and ignored by Git.
 
-## Theme supported by [open17](https://github.com/open17)
+Before publishing, verify that these generated routes exist:
+
+```text
+public/index.html
+public/page/blog.html
+public/page/tags.html
+public/page/archive.html
+public/page/friend.html
+public/posts/
+```
+
+## Content synchronization and deployment
+
+The GitHub Actions workflow on `master` clones the private content source from `AllenYGY/NOTE`, runs `movefolder.py`, builds the site, and force-updates the generated `page` branch. GitHub Pages serves `/docs` from that branch with the custom domain declared in `CNAME`.
+
+Do not commit generated content from `docs/posts/`, `docs/public/slides/`, `public/`, VitePress caches, or timestamped Vite config bundles.
