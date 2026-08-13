@@ -11,7 +11,7 @@
         :style="{ '--friend-index': index }"
       >
         <div class="friend-card__avatar">
-          <img :src="link.avatar" :alt="link.name" />
+          <img :src="link.avatar" :alt="link.name" loading="lazy" />
         </div>
         <div class="friend-card__content">
           <div class="friend-card__name">{{ link.name }}</div>

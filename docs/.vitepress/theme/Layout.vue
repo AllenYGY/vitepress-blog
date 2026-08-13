@@ -6,14 +6,14 @@
   <Layout :class="{ loadingStyle: isLoading, 'post-page': isPostPage }">
     <template #doc-before>
       <PostHero v-if="isPostPage" />
-      <template v-else>
+      <template v-else-if="!isFriendPage">
         <div class="text-3xl font-bold" v-if="title && useTitle">{{ title }}</div>
         <DocTags />
       </template>
     </template>
     <template #doc-after>
       <Backlinks v-if="showBacklinks" />
-      <Comment />
+      <Comment v-if="!isFriendPage" />
     </template>
   </Layout>
   <TagsOverlay />
@@ -60,6 +60,11 @@ const isPostPage = computed(() => {
   );
   if (layout && layout !== 'doc') return false;
   return path.includes('/posts/') && !isSlide;
+});
+
+const isFriendPage = computed(() => {
+  const path = route.path || '';
+  return path === '/page/friend.html' || path === '/page/friend' || path === '/friend.html' || path === '/friend';
 });
 
 const showBacklinks = computed(() => {
