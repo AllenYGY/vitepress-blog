@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./chunks/framework.Bfq_PhNx.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{"layout":"blog","lastUpdated":false},"headers":[],"relativePath":"page/blog.md","filePath":"page/blog.md"}'),o={name:"page/blog.md"};function r(s,c,l,n,p,d){return a(),t("div")}const f=e(o,[["render",r]]);export{i as __pageData,f as default};

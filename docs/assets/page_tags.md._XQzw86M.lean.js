@@ -1,0 +1,1 @@
+import{_ as t,c as a,o as e}from"./chunks/framework.Bfq_PhNx.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{"layout":"tags","lastUpdated":false},"headers":[],"relativePath":"page/tags.md","filePath":"page/tags.md"}'),s={name:"page/tags.md"};function o(r,c,n,p,d,_){return e(),a("div")}const f=t(s,[["render",o]]);export{l as __pageData,f as default};
